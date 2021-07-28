@@ -1,0 +1,58 @@
+.headerContainer {
+  width: 100%;
+  background-color: white;
+  box-sizing: border-box;
+  border-color: rgb(241, 234, 234);
+  border-top: 1px solid #5658615e;
+  border-bottom: 1px solid #5658615e;
+
+  top: 0px;
+
+  position: fixed;
+}
+.headerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+  max-width: 800px;
+
+  background-color: white;
+}
+.headerLeft {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #ca4242;
+}
+.headerLeftLogo {
+  height: 40px;
+}
+
+.headerMenu {
+  display: flex;
+  padding-left: 10px;
+}
+.headerMenuItem {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 10px 10px;
+}
+.headerMenuItem a {
+  text-decoration: none;
+  color: #8c7474;
+}
+.headerMenuItem .headerMenuActiveLink {
+  text-decoration: none;
+  color: #4271ca;
+}
+.headerMenuIcon {
+  font-size: 28px;
+}
+.headerProfileImage {
+  width: 30px;
+  border-radius: 30px;
+}

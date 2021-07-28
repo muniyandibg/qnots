@@ -1,0 +1,30 @@
+.adminContainer {
+  width: 100%;
+  min-height: 100%;
+  margin-top: 55px;
+}
+.adminWrapper {
+  background-color: white;
+  margin: auto;
+
+  max-width: 520px;
+}
+.adminMenu {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  border-bottom: 1px solid lightgray;
+}
+.adminMenuItem {
+  padding: 15px 10px;
+  width: 50%;
+  text-align: center;
+}
+.adminMenuItemActive {
+  padding: 15px 10px;
+  width: 50%;
+  text-align: center;
+  color: #4271ca;
+  font-weight: bold;
+  border-bottom: 2px solid #4271ca;
+}

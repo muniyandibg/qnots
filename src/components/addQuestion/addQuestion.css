@@ -1,0 +1,53 @@
+.addQuestionContainer {
+  width: 100%;
+}
+.addQuestionWrapper {
+  padding: 20px;
+}
+.question {
+  font-size: large;
+  width: 100%;
+  border: none;
+}
+.question:focus {
+  outline: none;
+}
+.choice {
+  padding: 10px 0px;
+  font-size: large;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.choiceRadioButton {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  margin-right: 10px;
+}
+.choiceText {
+  font-size: large;
+  flex: 1;
+  padding: 10px;
+}
+.select {
+  padding: 10px 0px;
+}
+.select select {
+  padding: 10px;
+  width: 100%;
+  font-size: large;
+}
+.addQuestionButton {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #4271ca;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+.message {
+  padding: 10px 0px;
+  font-size: 12px;
+  color: red;
+}

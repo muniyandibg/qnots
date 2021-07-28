@@ -1,0 +1,37 @@
+.profileContainer {
+  width: 100%;
+  min-height: 100%;
+  margin-top: 50px;
+}
+.profileWrapper {
+  margin: auto;
+
+  max-width: 520px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.logoutButton {
+  margin-top: 10px;
+  text-align: center;
+
+  padding: 10px;
+  background-color: #ca4a4a;
+  color: white;
+  font-weight: bold;
+}
+
+.conditionsFooter {
+  text-align: center;
+  font-size: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.blankSpace {
+  margin: 0px 5px;
+}
+.moreFeatures {
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+}

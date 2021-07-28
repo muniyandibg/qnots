@@ -1,0 +1,19 @@
+.homeContainer {
+  width: 100%;
+
+  min-height: 100%;
+  margin-top: 55px;
+}
+.homeWrapper {
+  margin: auto;
+  height: 800px;
+  max-width: 520px;
+}
+
+.homeTitleContainer {
+  background-color: white;
+  margin-top: 2px;
+}
+.homeTitle {
+  padding: 20px;
+}

@@ -1,0 +1,34 @@
+.loginContainer {
+  width: 100%;
+  background-color: white;
+  border: 1px solid 5658615e;
+}
+.loginWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.loginHeader {
+  width: 100%;
+  text-align: center;
+  padding-top: 10px;
+}
+.loginButton {
+  margin: 10px;
+  padding: 10px;
+  background-color: #4271ca;
+  color: white;
+  width: 70%;
+  text-align: center;
+  font-weight: bold;
+}
+.loginFooter {
+  width: 70%;
+  text-align: center;
+  font-size: 10px;
+  margin-bottom: 10px;
+}
+.blankSpace {
+  margin: 0px 5px;
+}

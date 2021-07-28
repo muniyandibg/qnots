@@ -1,0 +1,16 @@
+.questionContainer {
+  width: 100%;
+  min-height: 100%;
+  margin-top: 55px;
+}
+.questionWrapper {
+  margin: auto;
+  height: 800px;
+  max-width: 520px;
+}
+.loadingWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

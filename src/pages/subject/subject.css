@@ -1,0 +1,17 @@
+.subjectContainer {
+  width: 100%;
+
+  min-height: 100%;
+  margin-top: 55px;
+}
+.subjectWrapper {
+  margin: auto;
+  height: 800px;
+  max-width: 520px;
+}
+.subjectTitleContainer {
+  background-color: white;
+}
+.subjectTitle {
+  padding: 20px;
+}

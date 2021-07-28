@@ -1,0 +1,98 @@
+.questionContainerUser {
+  width: 100%;
+}
+.questionWrapperUser {
+  padding: 20px;
+  background-color: white;
+  margin-top: 5px;
+}
+.questionHeaderUser {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0px;
+}
+.questionHeaderLinkUser {
+  color: #4c8bca;
+  font-weight: 500;
+}
+.questionHeaderLinkDividerUser {
+  color: lightgray;
+}
+.questionHeaderDateUser {
+  color: #8c7474;
+}
+.questionUser {
+  /* //color: #4271ca; */
+  font-weight: 500;
+  margin: 15px 0px 20px 0px;
+}
+.questionChoiceUser {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #c3cfda1f;
+
+  margin-bottom: 2px;
+  border: 1px solid #d2d5da;
+}
+.questionChoiceRadioUser {
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 20px;
+  font-size: medium;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px;
+}
+.questionChoiceTextUser {
+  flex: 1;
+}
+.shareQuestionUser {
+  margin: 20px 0px 5px 0px;
+  color: #8c7474;
+  display: flex;
+
+  align-items: center;
+}
+
+.questionChoiceRadioIconUser {
+  color: green;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.questionChoiceWrongRadioIconUser {
+  color: red;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.questionChoiceCorrectUser {
+  background-color: #93ca93a6;
+  pointer-events: none;
+}
+.questionChoiceWrongUser {
+  background-color: #f1131340;
+  pointer-events: none;
+}
+.disableChoiceUser {
+  pointer-events: none;
+}
+
+.questionShare {
+  display: flex;
+  align-items: center;
+}
+.shareButtons {
+  margin-right: 10px;
+}

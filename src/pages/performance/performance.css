@@ -1,0 +1,74 @@
+.performanceContainer {
+  width: 100%;
+
+  min-height: 100%;
+  margin-top: 55px;
+}
+.performanceWrapper {
+  margin: auto;
+  height: 800px;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+}
+.subjectLink {
+  background-color: white;
+  padding: 15px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+}
+.topicWrapper a {
+  text-decoration: none;
+}
+
+.subjectFolderIcon {
+  font-size: 25px;
+  margin-right: 5px;
+}
+
+.subjectLink {
+  background-color: white;
+  padding: 15px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+}
+.topicWrapper a {
+  text-decoration: none;
+}
+
+.subjectFolderIcon {
+  font-size: 25px;
+  margin-right: 5px;
+}
+.performance {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: white;
+  margin-top: 5px;
+  font-size: 12px;
+}
+.loadingContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.performanceSubjectText {
+  width: 100px;
+}
+.performanceFields {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.titleContainer {
+  background-color: white;
+}
+.title {
+  padding: 20px;
+}

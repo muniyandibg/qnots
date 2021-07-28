@@ -1,0 +1,12 @@
+.privacyContainer {
+  width: 100%;
+
+  min-height: 100%;
+  margin-top: 55px;
+}
+.privacyWrapper {
+  margin: auto;
+  height: 800px;
+  max-width: 520px;
+  padding: 10px;
+}

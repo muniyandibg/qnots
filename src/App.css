@@ -3,5 +3,9 @@
   font-family: "Roboto", sans-serif;
 }
 html {
-  background-color: lightgrey;
+  /* background-color: #f3f2ef; */
+  background-color: #f3f2ef;
+}
+.container {
+  margin-top: 75px;
 }

@@ -9,7 +9,13 @@
 /coverage
 
 # production
+/public
 /build
+/src/assets
+/src/terms
+/src/privacy
+/src/firebaseConfig.js
+/src/topics.json
 
 # misc
 .DS_Store
@@ -17,7 +23,9 @@
 .env.development.local
 .env.test.local
 .env.production.local
-
+.firebase/
+.firebaserc
+.gitignore
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

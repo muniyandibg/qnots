@@ -1,13 +1,8 @@
 .headerContainer {
   width: 100%;
-  background-color: white;
+  background-color: #092f4a;
   box-sizing: border-box;
-  border-color: rgb(241, 234, 234);
-  border-top: 1px solid #5658615e;
-  border-bottom: 1px solid #5658615e;
-
   top: 0px;
-
   position: fixed;
 }
 .headerWrapper {
@@ -15,8 +10,8 @@
   align-items: center;
   justify-content: space-between;
   margin: auto;
-  max-width: 800px;
 
+  max-width: 800px;
   background-color: white;
 }
 .headerLeft {
@@ -33,26 +28,65 @@
 
 .headerMenu {
   display: flex;
-  padding-left: 10px;
+  max-width: 800px;
+  margin: auto;
+  padding: 0px;
+  justify-content: space-between;
+  align-items: center;
 }
 .headerMenuItem {
   display: flex;
   align-items: center;
+  justify-content: center;
   list-style: none;
   padding: 10px 10px;
 }
 .headerMenuItem a {
   text-decoration: none;
-  color: #8c7474;
+  color: #bbb2b2;
+  /* color: #c0ff5e; */
 }
 .headerMenuItem .headerMenuActiveLink {
   text-decoration: none;
-  color: #4271ca;
+  /* color: #4271ca; */
+  color: white;
+}
+.headerMenuLink {
+  display: flex;
+  align-items: flex-end;
+}
+.headerMenuLinkText {
+  margin-left: 2px;
+  font-weight: bold;
 }
 .headerMenuIcon {
   font-size: 28px;
+  font-weight: lighter;
 }
 .headerProfileImage {
-  width: 30px;
-  border-radius: 30px;
+  width: 24px;
+  border-radius: 50%;
+}
+
+.logo {
+  font-family: "Quando", serif;
+  font-size: 24px;
+  /* color: #4271ca; */
+  color: white;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 700px) {
+  .headerMenuLinkText {
+    display: none;
+  }
+}
+
+.betaMessage {
+  width: 100%;
+  padding: 3px 0;
+
+  background-color: rgb(163, 163, 38);
+  font-weight: 700;
+  text-align: center;
 }

@@ -9,11 +9,13 @@ import Header from "./components/header/Header"
 import Home from "./pages/home/Home"
 import Performance from "./pages/performance/Permormance"
 import Question from "./pages/question/Question"
-import Subject from "./pages/subject/Subject"
-import Topics from "./pages/topics/Topics"
+import PostQuestion from "./pages/postQuestion/PostQuestion"
+import Topic from "./pages/topic/Topic"
+import TopicList from "./pages/topiclist/TopicList"
 import firebase from "./firebaseConfig"
 import Loader from "./components/loader/Loader"
 import Profile from "./pages/profile/Profile"
+import User from "./pages/user/User"
 import Admin from "./pages/admin/Admin"
 import Terms from "./pages/terms/Terms"
 import Privacy from "./pages/privacy/Privacy"
@@ -33,7 +35,6 @@ function App() {
         return
 
       case "setUserData":
-        console.log(action.value)
         draft.user = action.value
         draft.loading = false
         return
@@ -57,9 +58,29 @@ function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        let userData = { userDisplayName: user.displayName, userProfilePhoto: user.photoURL, userEmail: user.email }
-
+        let userData = { uid: user.uid, userDisplayName: user.displayName, userProfilePhoto: user.photoURL, userEmail: user.email }
         dispatch({ type: "setUserData", value: userData })
+        if (user.metadata.creationTime === user.metadata.lastSignInTime) {
+          console.log("new user")
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(user.uid)
+            .get()
+            .then((doc) => {
+              if (doc.exists) {
+                console.log("user record already created")
+              } else {
+                firebase.firestore().collection("users").doc(user.uid).set(userData)
+                console.log("New user record")
+              }
+            })
+            .catch((error) => {
+              console.log("Error getting document:", error)
+            })
+        } else {
+          console.log("existing user")
+        }
       } else {
         dispatch({ type: "logoutUser" })
       }
@@ -107,12 +128,13 @@ function App() {
         <DispatchContext.Provider value={dispatch}>
           <BrowserRouter>
             <Header />
+
             <Switch>
               <Route path="/" exact>
                 <Home />
               </Route>
-              <Route path="/topics" exact>
-                <Topics />
+              <Route path="/topiclist" exact>
+                <TopicList />
               </Route>
               <Route path="/performance" exact>
                 <Performance />
@@ -123,11 +145,17 @@ function App() {
               <Route path="/admin" exact>
                 <Admin />
               </Route>
+              <Route path="/postquestion" exact>
+                <PostQuestion />
+              </Route>
               <Route path="/question/:id" exact>
                 <Question />
               </Route>
-              <Route path="/subject/:subject" exact>
-                <Subject />
+              <Route path="/topic/:topic" exact>
+                <Topic />
+              </Route>
+              <Route path="/user/:id" exact>
+                <User />
               </Route>
               <Route path="/terms" exact>
                 <Terms />

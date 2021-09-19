@@ -32,12 +32,12 @@ function Login() {
   return (
     <div className="loginContainer">
       <div className="loginWrapper">
-        <div className="loginHeader">Log in to track your performance!</div>
+        <div className="loginHeader">SignIn / SignUp</div>
         {state.loading ? (
           <Loader />
         ) : (
           <div onClick={() => login()} className="loginButton">
-            Continue With google
+            Continue With Google
           </div>
         )}
         <div className="loginFooter">

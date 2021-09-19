@@ -24,7 +24,9 @@ function Performance() {
         draft.loading = action.value
         return
       case "performance":
-        draft.performance = action.value
+        let temp = action.value
+        let sortedTemp = temp.slice().sort((a, b) => b.percentage - a.percentage)
+        draft.performance = sortedTemp
         draft.loading = false
         return
     }
@@ -57,7 +59,7 @@ function Performance() {
   }
 
   return (
-    <div className="performanceContainer">
+    <div className="performanceContainer container">
       <div className="performanceWrapper">
         {!appState.user ? (
           <Login />
@@ -72,12 +74,18 @@ function Performance() {
                 <div className="titleContainer">
                   <div className="title">Your Performance</div>
                 </div>
+                <div className="performanceHeader">
+                  <div className="performanceSubjectText">Topic</div>
+                  <div className="performanceFields">Correct</div>
+                  <div className="performanceFields">Incorrect</div>
+                  <div className="performanceFields">Percentage</div>
+                </div>
                 {state.performance.map((item, index) => {
                   return (
                     <div key={index} className="performance">
                       <div className="performanceSubjectText">{item.subject}</div>
-                      <div className="performanceFields">Correct : {item.correct}</div>
-                      <div className="performanceFields">InCorrect : {item.wrong}</div>
+                      <div className="performanceFields">{item.correct}</div>
+                      <div className="performanceFields">{item.wrong}</div>
                       <div className="performanceFields">{item.percentage.toFixed(2)} %</div>
                     </div>
                   )

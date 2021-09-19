@@ -2,7 +2,6 @@
   width: 100%;
 
   min-height: 100%;
-  margin-top: 55px;
 }
 .homeWrapper {
   margin: auto;
@@ -12,7 +11,7 @@
 
 .homeTitleContainer {
   background-color: white;
-  margin-top: 2px;
+  border-bottom: 1px solid lightgray;
 }
 .homeTitle {
   padding: 20px;

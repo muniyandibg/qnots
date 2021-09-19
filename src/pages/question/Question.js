@@ -42,9 +42,11 @@ function Question() {
   }, [])
 
   const getQuestion = async () => {
-    var docRef = firebase.firestore().collection("questions").doc("4P8AAcEWWsn9OblX6YiQ")
     console.log(id)
-    await docRef
+    await firebase
+      .firestore()
+      .collection("questions")
+      .doc(id.id)
       .get()
       .then((doc) => {
         if (doc.exists) {
@@ -61,10 +63,11 @@ function Question() {
   }
 
   return (
-    <div className="questionContainer">
-      <div className="questionWrapper">
+    <div className="questionContainerSingle">
+      <div className="questionWrapperSingle">
         {!appState.user && <Login />}
         {!state.loading && <QuestionUser question={state.question} />}
+        {!state.loading && <div className="commentFeature">Comment Feature will be available soon...</div>}
       </div>
     </div>
   )

@@ -1,17 +1,17 @@
-.subjectContainer {
+.topicContainer {
   width: 100%;
 
   min-height: 100%;
-  margin-top: 55px;
 }
-.subjectWrapper {
+.topicWrapper {
   margin: auto;
   height: 800px;
   max-width: 520px;
 }
-.subjectTitleContainer {
+.topicTitleContainer {
   background-color: white;
+  border-bottom: 1px solid lightgrey;
 }
-.subjectTitle {
+.topicTitle {
   padding: 20px;
 }

@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import Login from "../../components/login/Login"
-import "./subject.css"
+import "./topic.css"
 import StateContext from "../../StateContext"
 import DispatchContext from "../../DispatchContext"
 import { useImmerReducer } from "use-immer"
@@ -10,7 +10,7 @@ import GetQuestionsUser from "../../components/getQuestionsUser/GetQuestionsUser
 import { useParams } from "react-router-dom/cjs/react-router-dom.min"
 
 function Home() {
-  const subject = useParams()
+  const topic = useParams()
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
 
@@ -31,13 +31,13 @@ function Home() {
   }, [])
 
   return (
-    <div className="subjectContainer">
-      <div className="subjectWrapper">
+    <div className="topicContainer container">
+      <div className="topicWrapper">
         {!appState.user && <Login />}
-        <div className="subjectTitleContainer">
-          <div className="subjectTitle">{subject.subject}</div>
+        <div className="topicTitleContainer">
+          <div className="topicTitle">{topic.topic}</div>
         </div>
-        <GetQuestionsUser subject={subject.subject} />
+        <GetQuestionsUser topic={topic.topic} />
       </div>
     </div>
   )

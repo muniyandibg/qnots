@@ -29,9 +29,9 @@ function Home() {
   }, [])
 
   return (
-    <div className="homeContainer">
+    <div className="homeContainer container">
       <div className="homeWrapper">
-        {!appState.user && <Login />}
+        {/* {!appState.user && <Login />} */}
         <div className="homeTitleContainer">
           <div className="homeTitle">Recent Questions</div>
         </div>

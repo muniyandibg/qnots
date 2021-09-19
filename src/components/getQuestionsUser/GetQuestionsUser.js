@@ -1,13 +1,16 @@
 /* eslint-disable */
 
 import "./getQuestionsUser.css"
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { useImmerReducer } from "use-immer"
 import Loader from "../loader/Loader"
 import firebase from "../../firebaseConfig"
 import QuestionUser from "../questionUser/QuestionUser"
+import StateContext from "../../StateContext"
 
 function GetQuestionsUser(props) {
+  const appState = useContext(StateContext)
+  const userId = appState.user ? appState.user.uid : null
   const initialState = {
     loading: true,
     posts: [],
@@ -43,12 +46,15 @@ function GetQuestionsUser(props) {
     let data = []
     let lastVisible = state.lastVisible
 
-    if (props.subject) {
-      query = firebase.firestore().collection("questions").orderBy("time", "desc").where("subject", "==", props.subject).limit(10)
-      if (lastVisible != null) query = firebase.firestore().collection("questions").orderBy("time", "desc").where("subject", "==", props.subject).startAfter(lastVisible).limit(10)
+    if (props.topic) {
+      query = firebase.firestore().collection("questions").where("topic", "==", props.topic).where("status", "==", "public").orderBy("time", "desc").limit(10)
+      if (lastVisible != null) query = firebase.firestore().collection("questions").where("topic", "==", props.topic).where("status", "==", "public").orderBy("time", "desc").startAfter(lastVisible).limit(10)
+    } else if (props.authorUid) {
+      query = firebase.firestore().collection("questions").where("status", "==", "public").where("authorUid", "==", props.authorUid).orderBy("time", "desc").limit(10)
+      if (lastVisible != null) query = firebase.firestore().collection("questions").where("status", "==", "public").where("authorUid", "==", props.authorUid).orderBy("time", "desc").startAfter(lastVisible).limit(10)
     } else {
-      query = firebase.firestore().collection("questions").orderBy("time", "desc").limit(10)
-      if (lastVisible != null) query = firebase.firestore().collection("questions").orderBy("time", "desc").startAfter(lastVisible).limit(10)
+      query = firebase.firestore().collection("questions").where("status", "==", "public").orderBy("time", "desc").limit(10)
+      if (lastVisible != null) query = firebase.firestore().collection("questions").where("status", "==", "public").orderBy("time", "desc").startAfter(lastVisible).limit(10)
     }
 
     await query
@@ -81,7 +87,7 @@ function GetQuestionsUser(props) {
       ) : state.posts.length ? (
         <>
           {state.posts.map((post, index) => {
-            return <QuestionUser attemptsUpdate={props.attemptsUpdate} key={index} question={post} />
+            return <QuestionUser uid={userId} key={post.id} question={post} />
           })}
 
           {state.loadmore && (
@@ -91,7 +97,7 @@ function GetQuestionsUser(props) {
           )}
         </>
       ) : (
-        <div className="getQuestionsLoadmore">NEW QUESTIONS WILL BE POSTED SOON...</div>
+        <div className="getQuestionsLoadmore">No more qnots to show...</div>
       )}
     </div>
   )

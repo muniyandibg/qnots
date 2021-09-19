@@ -2,6 +2,7 @@
   width: 100%;
   background-color: white;
   border: 1px solid 5658615e;
+  margin-bottom: 5px;
 }
 .loginWrapper {
   display: flex;

@@ -1,19 +1,23 @@
 /* eslint-disable */
 
 import Login from "../../components/login/Login"
-import "./profile.css"
+import "./user.css"
 import StateContext from "../../StateContext"
 import DispatchContext from "../../DispatchContext"
 import { useImmerReducer } from "use-immer"
 import { useContext, useEffect } from "react"
 import GetQuestionsUser from "../../components/getQuestionsUser/GetQuestionsUser"
+import { useParams } from "react-router-dom/cjs/react-router-dom.min"
+import firebase from "../../firebaseConfig"
 
-function Profile() {
+function User() {
+  const id = useParams()
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
 
   const initialState = {
     loading: true,
+    user: null,
   }
 
   function ourReducer(draft, action) {
@@ -21,27 +25,46 @@ function Profile() {
       case "loading":
         draft.loading = action.value
         return
+      case "userData":
+        draft.user = action.value
+        draft.loading = false
+        return
     }
   }
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
   useEffect(() => {
     window.scrollTo(0, 0)
+    getUserData()
   }, [])
+
+  const getUserData = async () => {
+    await firebase
+      .firestore()
+      .collection("users")
+      .doc(id.id)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log(doc.data())
+          dispatch({ type: "userData", value: { ...doc.data() } })
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!")
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error)
+      })
+  }
 
   return (
     <div className="profileContainer container">
       <div className="profileWrapper">
-        {appState.user && <img src={appState.user.userProfilePhoto} alt="" className="profilePhoto" />}
-        {appState.user && <div className="userName">{appState.user.userDisplayName}</div>}
-        {appState.user ? (
-          <div onClick={() => appDispatch({ type: "changeLogoutCount" })} className="logoutButton">
-            Logout
-          </div>
-        ) : (
-          <Login />
-        )}
-        {appState.user && <div className="questionDivider">My Qnots</div>}
-        {appState.user && <GetQuestionsUser authorUid={appState.user.uid} />}
+        {!state.loading && state.user && <img src={state.user.userProfilePhoto} alt="" className="profilePhoto" />}
+        {!state.loading && state.user && <div className="userName">{state.user.userDisplayName}</div>}
+
+        {appState.user && <div className="questionDivider">Recent Qnots</div>}
+        {appState.user && <GetQuestionsUser authorUid={id.id} />}
         {/* {appState.user && (
           <div className="conditionsFooter">
             By using our services you are agreeing to our{" "}
@@ -58,4 +81,4 @@ function Profile() {
     </div>
   )
 }
-export default Profile
+export default User

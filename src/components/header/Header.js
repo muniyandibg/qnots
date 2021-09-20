@@ -6,7 +6,9 @@ import logo from "../../assets/qnots1.png"
 import { AiOutlineHome, AiFillHome, AiFillTrophy, AiOutlineTrophy, AiOutlinePieChart, AiFillPieChart } from "react-icons/ai"
 import { RiFileListLine, RiFileListFill, RiMedalFill, RiMedalLine } from "react-icons/ri"
 import { IoIosAddCircleOutline, IoIosAddCircle } from "react-icons/io"
-import { FaRegUserCircle, FaUserCircle } from "react-icons/fa"
+import { FaRegUserCircle, FaUserCircle, FaSearch } from "react-icons/fa"
+import { SiFeedly } from "react-icons/si"
+import { HiUserGroup } from "react-icons/hi"
 import DispatchContext from "../../DispatchContext"
 import StateContext from "../../StateContext"
 import { useContext } from "react"
@@ -18,52 +20,101 @@ function Header() {
 
   return (
     <div className="headerContainer">
-      <div className="betaMessage">This website under development!</div>
-      <ul className="headerMenu">
-        <li className="headerMenuItem">
-          <div className="logo">Qnots</div>
-          {/* <img src={logo} alt="logo" className="headerLeftLogo" /> */}
-        </li>
+      <div className="headerWrapper">
+        <div className="logo">Qnots</div>
+
+        <div className="search">
+          <FaSearch className="searchIcon" />
+          <input type="text" placeholder="Search" className="searchInput" />
+        </div>
+
+        <div className="headerMenu">
+          <li className="headerMenuItem">
+            <NavLink exact to="/" activeClassName="headerMenuActiveLink" className="headerMenuLink">
+              {pathname === "/" ? <AiFillHome className="headerMenuIcon" /> : <AiFillHome className="headerMenuIcon" />}
+              <span className="headerMenuLinkText">Home</span>
+            </NavLink>
+          </li>
+          <li className="headerMenuItem">
+            <NavLink exact to="/feeds" activeClassName="headerMenuActiveLink" className="headerMenuLink">
+              {pathname === "/feeds" ? <SiFeedly className="headerMenuIcon" /> : <SiFeedly className="headerMenuIcon" />}
+              <span className="headerMenuLinkText">My Feeds</span>
+            </NavLink>
+          </li>
+
+          <li className="headerMenuItem">
+            <NavLink exact to="/topiclist" activeClassName="headerMenuActiveLink" className="headerMenuLink">
+              {pathname === "/topiclist" ? <RiFileListFill className="headerMenuIcon" /> : <RiFileListFill className="headerMenuIcon" />}
+              <span className="headerMenuLinkText">Topics</span>
+            </NavLink>
+          </li>
+          <li className="headerMenuItem">
+            <NavLink exact to="/contributors" activeClassName="headerMenuActiveLink" className="headerMenuLink">
+              {pathname === "/contributors" ? <HiUserGroup className="headerMenuIcon" /> : <HiUserGroup className="headerMenuIcon" />}
+              <span className="headerMenuLinkText">Contributors</span>
+            </NavLink>
+          </li>
+          <li className="headerMenuItem">
+            <NavLink exact to="/performance" activeClassName="headerMenuActiveLink" className="headerMenuLink">
+              {pathname === "/performance" ? <AiFillPieChart className="headerMenuIcon" /> : <AiFillPieChart className="headerMenuIcon" />}
+              <span className="headerMenuLinkText">Performance</span>
+            </NavLink>
+          </li>
+
+          <li className="headerMenuItem">
+            <NavLink exact to="/postquestion" activeClassName="headerMenuActiveLink" className="headerMenuLink">
+              {pathname === "/postquestion" ? <IoIosAddCircle className="headerMenuIcon" /> : <IoIosAddCircle className="headerMenuIcon" />}
+              <span className="headerMenuLinkText">Create</span>
+            </NavLink>
+          </li>
+        </div>
+
+        <NavLink exact to="/profile" activeClassName="headerMenuActiveLink">
+          {appState.user ? (
+            <div>
+              <img src={appState.user.userProfilePhoto} alt="profile" className="headerProfileImage" />
+            </div>
+          ) : pathname === "/profile" ? (
+            <FaUserCircle className="headerMenuIcon" />
+          ) : (
+            <FaRegUserCircle className="headerMenuIcon" />
+          )}
+        </NavLink>
+      </div>
+      <div className="headerMenuMobile">
         <li className="headerMenuItem">
           <NavLink exact to="/" activeClassName="headerMenuActiveLink" className="headerMenuLink">
-            {pathname === "/" ? <AiFillHome className="headerMenuIcon" /> : <AiOutlineHome className="headerMenuIcon" />}
-            <span className="headerMenuLinkText">Home</span>
+            {pathname === "/" ? <AiFillHome className="headerMenuIcon" /> : <AiFillHome className="headerMenuIcon" />}
           </NavLink>
         </li>
         <li className="headerMenuItem">
+          <NavLink exact to="/feeds" activeClassName="headerMenuActiveLink" className="headerMenuLink">
+            {pathname === "/feeds" ? <SiFeedly className="headerMenuIcon" /> : <SiFeedly className="headerMenuIcon" />}
+          </NavLink>
+        </li>
+
+        <li className="headerMenuItem">
           <NavLink exact to="/topiclist" activeClassName="headerMenuActiveLink" className="headerMenuLink">
-            {pathname === "/topiclist" ? <RiFileListFill className="headerMenuIcon" /> : <RiFileListLine className="headerMenuIcon" />}
-            <span className="headerMenuLinkText">Topics</span>
+            {pathname === "/topiclist" ? <RiFileListFill className="headerMenuIcon" /> : <RiFileListFill className="headerMenuIcon" />}
+          </NavLink>
+        </li>
+        <li className="headerMenuItem">
+          <NavLink exact to="/contributors" activeClassName="headerMenuActiveLink" className="headerMenuLink">
+            {pathname === "/contributors" ? <HiUserGroup className="headerMenuIcon" /> : <HiUserGroup className="headerMenuIcon" />}
           </NavLink>
         </li>
         <li className="headerMenuItem">
           <NavLink exact to="/performance" activeClassName="headerMenuActiveLink" className="headerMenuLink">
-            {pathname === "/performance" ? <AiFillPieChart className="headerMenuIcon" /> : <AiOutlinePieChart className="headerMenuIcon" />}
-            <span className="headerMenuLinkText">Performance</span>
+            {pathname === "/performance" ? <AiFillPieChart className="headerMenuIcon" /> : <AiFillPieChart className="headerMenuIcon" />}
           </NavLink>
         </li>
 
         <li className="headerMenuItem">
           <NavLink exact to="/postquestion" activeClassName="headerMenuActiveLink" className="headerMenuLink">
-            {pathname === "/postquestion" ? <IoIosAddCircle className="headerMenuIcon" /> : <IoIosAddCircleOutline className="headerMenuIcon" />}
-            <span className="headerMenuLinkText">Post Question</span>
+            {pathname === "/postquestion" ? <IoIosAddCircle className="headerMenuIcon" /> : <IoIosAddCircle className="headerMenuIcon" />}
           </NavLink>
         </li>
-
-        <li className="headerMenuItem">
-          <NavLink exact to="/profile" activeClassName="headerMenuActiveLink">
-            {appState.user ? (
-              <div className="headerMenuIcon headerMenuLink">
-                <img src={appState.user.userProfilePhoto} alt="profile" className="headerProfileImage" />
-              </div>
-            ) : pathname === "/profile" ? (
-              <FaUserCircle className="headerMenuIcon" />
-            ) : (
-              <FaRegUserCircle className="headerMenuIcon" />
-            )}
-          </NavLink>
-        </li>
-      </ul>
+      </div>
     </div>
   )
 }

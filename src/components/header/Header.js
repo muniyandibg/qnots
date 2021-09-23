@@ -69,28 +69,29 @@ function Header() {
           </li>
         </div>
 
-        <NavLink exact to="/profile" className="loginLink">
-          {appState.user ? (
-            <div>
-              <img src={appState.user.userProfilePhoto} alt="profile" className="headerProfileImage" />
-            </div>
-          ) : (
-            <div className="login">Login</div>
-          )}
-        </NavLink>
+        {appState.user ? (
+          <NavLink exact to="/profile" className="loginLink">
+            <img src={appState.user.userProfilePhoto} alt="profile" className="headerProfileImage" />
+          </NavLink>
+        ) : (
+          <div onClick={() => appDispatch({ type: "showLoginScreen", value: true })} className="login">
+            Login
+          </div>
+        )}
       </div>
       <div className="headerWrapperMobile">
         <FaSearch className="searchIconMobile" />
         <div className="logo">Qnots</div>
-        <NavLink exact to="/profile" className="loginLink">
-          {appState.user ? (
-            <div>
-              <img src={appState.user.userProfilePhoto} alt="profile" className="headerProfileImage" />
-            </div>
-          ) : (
-            <div className="login">Login</div>
-          )}
-        </NavLink>
+
+        {appState.user ? (
+          <NavLink exact to="/profile" className="loginLink">
+            <img src={appState.user.userProfilePhoto} alt="profile" className="headerProfileImage" />
+          </NavLink>
+        ) : (
+          <div onClick={() => appDispatch({ type: "showLoginScreen", value: true })} className="login">
+            Login
+          </div>
+        )}
       </div>
       <div className="headerMenuMobile">
         <li className="headerMenuItem">

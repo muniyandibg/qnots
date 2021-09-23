@@ -33,7 +33,6 @@ function Home() {
   return (
     <div className="topicContainer container">
       <div className="topicWrapper">
-        {!appState.user && <Login />}
         <div className="topicTitleContainer">
           <div className="topicTitle">{topic.topic}</div>
         </div>

@@ -20,9 +20,11 @@ import User from "./pages/user/User"
 import Admin from "./pages/admin/Admin"
 import Terms from "./pages/terms/Terms"
 import Privacy from "./pages/privacy/Privacy"
+import Login from "./components/login/Login"
 
 function App() {
   const initialState = {
+    showLoginScreen: false,
     loading: true,
     user: null,
     loginCount: 0,
@@ -39,11 +41,17 @@ function App() {
 
       case "setUserData":
         draft.user = action.value
+        draft.showLoginScreen = false
         draft.loading = false
         return
       case "logoutUser":
         draft.user = null
+        draft.followingTopics = []
+        draft.showLoginScreen = true
         draft.loading = false
+        return
+      case "showLoginScreen":
+        draft.showLoginScreen = action.value
         return
       case "changeLoginCount":
         draft.loginCount = draft.loginCount + 1
@@ -64,8 +72,10 @@ function App() {
         return
 
       case "followTopic":
-        draft.followingTopics.push(action.value)
-        draft.updateFollowingTopics++
+        if (draft.user) {
+          draft.followingTopics.push(action.value)
+          draft.updateFollowingTopics++
+        } else draft.showLoginScreen = true
         return
 
       default:
@@ -152,6 +162,12 @@ function App() {
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
         <Loader />
       </div>
+    )
+  else if (state.showLoginScreen)
+    return (
+      <DispatchContext.Provider value={dispatch}>
+        <Login />
+      </DispatchContext.Provider>
     )
   else
     return (

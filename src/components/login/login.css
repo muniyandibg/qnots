@@ -1,13 +1,24 @@
 .loginContainer {
   width: 100%;
+  height: 100%;
   background-color: white;
   border: 1px solid 5658615e;
   margin-bottom: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+
+  background-image: linear-gradient(to right, #245d88, #00000099);
 }
 .loginWrapper {
+  max-width: 520px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+
   align-items: center;
 }
 .loginHeader {
@@ -18,8 +29,9 @@
 .loginButton {
   margin: 10px;
   padding: 10px;
-  background-color: #4271ca;
-  color: white;
+  background-color: white;
+  color: #4ca4e7;
+  border-radius: 5px;
   width: 70%;
   text-align: center;
   font-weight: bold;
@@ -32,4 +44,35 @@
 }
 .blankSpace {
   margin: 0px 5px;
+}
+.quote {
+  margin: 100px 20px 0px 20px;
+  font-size: 1.5rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.575);
+  font-weight: 400;
+}
+.loginLogo {
+  font-family: "Quando", serif;
+  margin: 50px 0px 50px 0px;
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+}
+.termsNotice {
+  color: white;
+  line-height: 20px;
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+}
+.link {
+  text-decoration: none;
+  font-weight: 700;
+  color: white;
+}
+.guest {
+  color: lightgray;
+  font-size: 1.2rem;
+  font-weight: 300;
 }

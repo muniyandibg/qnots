@@ -15,9 +15,11 @@ import StateContext from "../../StateContext"
 import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from "react-share"
 import { FacebookIcon, TwitterIcon, WhatsappIcon } from "react-share"
 import { FiMoreVertical } from "react-icons/fi"
+import DispatchContext from "../../DispatchContext"
 
 function QuestionUser(props) {
   const appState = useContext(StateContext)
+  const appDispatch = useContext(DispatchContext)
   const initialState = {
     selectedChoice: null,
     loading: true,
@@ -93,7 +95,7 @@ function QuestionUser(props) {
       firebase.firestore().collection("answers").doc(activityId).set({ uid: props.uid, qid: props.question.id, attempt: userChoice })
       updateUserPerformance(userChoice)
     } else {
-      props.history.push("/profile")
+      dispatch({ type: "selectedChoice", value: userChoice })
       return
     }
   }
@@ -113,11 +115,14 @@ function QuestionUser(props) {
         updateContributorVotes("upvote")
       }
     } else {
-      props.history.push("/profile")
+      appDispatch({ type: "showLoginScreen", value: true })
       return
     }
   }
   const updateUserPerformance = async (userChoice) => {
+    if (!props.question.topic) {
+      return
+    }
     let email = appState.user.userEmail
     let attempt = 1
     let correct = 0

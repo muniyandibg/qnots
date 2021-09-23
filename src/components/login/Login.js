@@ -28,11 +28,16 @@ function Login() {
     state.loading = true
     appDispatch({ type: "changeLoginCount" })
   }
+  const showLoginScreen = () => {
+    appDispatch({ type: "showLoginScreen", value: false })
+  }
 
   return (
     <div className="loginContainer">
       <div className="loginWrapper">
-        <div className="loginHeader">SignIn / SignUp</div>
+        <div className="quote">This application under development!</div>
+        <div className="loginLogo">Qnots</div>
+
         {state.loading ? (
           <Loader />
         ) : (
@@ -40,15 +45,20 @@ function Login() {
             Continue With Google
           </div>
         )}
-        <div className="loginFooter">
-          By using our services you are agreeing to our{" "}
+        <div className="termsNotice">
           <span>
-            <a href="https://qnots.com/terms">Terms of use</a>
+            Please note, This website under development and testing. The contents may be changed or removed without notice. By using our services you are agreeing to our{" "}
+            <a className="link" href="https://qnots.com/terms">
+              Terms of use
+            </a>{" "}
+            ,{" "}
+            <a className="link" href="https://qnots.com/privacy">
+              Privacy policy
+            </a>
           </span>
-          <span className="blankSpace">and</span>
-          <span>
-            <a href="https://qnots.com/privacy">Privacy policy</a>
-          </span>
+        </div>
+        <div onClick={() => showLoginScreen()} className="guest">
+          Continue as Guest!
         </div>
       </div>
     </div>

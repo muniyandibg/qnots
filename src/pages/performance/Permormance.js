@@ -62,7 +62,7 @@ function Performance() {
     <div className="performanceContainer container">
       <div className="performanceWrapper">
         {!appState.user ? (
-          <Login />
+          <div className="messageToUser">You are not logged in to view your performance!</div>
         ) : (
           <div>
             {state.loading ? (

@@ -28,7 +28,7 @@ function PostQuestion() {
 
   return (
     <div className="adminContainer container">
-      <div className="adminWrapper">{appState.user ? <AddQuestion /> : <Login />}</div>
+      <div className="adminWrapper">{appState.user ? <AddQuestion /> : <div className="messageToUser">You are not logged in!</div>}</div>
     </div>
   )
 }

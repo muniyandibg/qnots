@@ -38,7 +38,7 @@ function Profile() {
             Logout
           </div>
         ) : (
-          <Login />
+          <div className="messageToUser">You are not logged in!</div>
         )}
         {appState.user && <div className="questionDivider">My Qnots</div>}
         {appState.user && <GetQuestionsUser authorUid={appState.user.uid} />}

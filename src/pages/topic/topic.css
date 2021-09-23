@@ -1,11 +1,9 @@
 .topicContainer {
   width: 100%;
-
-  min-height: 100%;
 }
 .topicWrapper {
   margin: auto;
-  height: 800px;
+
   max-width: 520px;
 }
 .topicTitleContainer {

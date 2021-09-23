@@ -26,7 +26,7 @@ function TopicList() {
     window.scrollTo(0, 0)
   }, [])
   return (
-    <div className="topicContainer container">
+    <div className="topicContainer">
       <div className="topicWrapper">
         <div className="topicType">
           <div onClick={() => dispatch({ type: "active", value: "following" })} className={state.active == "following" ? "topicTypeItemActive" : "topicTypeItem"}>

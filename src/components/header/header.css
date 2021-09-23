@@ -1,5 +1,6 @@
 .headerContainer {
   width: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7,11 +8,13 @@
   background-color: white;
   box-sizing: border-box;
   top: 0px;
-  position: fixed;
-  border-bottom: 1px solid #00000014;
+  position: sticky;
+  border-bottom: 1px solid #e0dfdc;
+  border-top: 1px solid #e0dfdc;
 }
 .headerWrapper {
   display: flex;
+  height: 55px;
   align-items: center;
   justify-content: space-between;
   margin: auto;
@@ -30,7 +33,7 @@
   flex-direction: row;
   background-color: #eef3f8;
   border: 1px solid #00000014;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   margin: 0px 10px;
 }
@@ -94,7 +97,7 @@
 .logo {
   font-family: "Quando", serif;
   font-size: 30px;
-  color: #092f4a;
+  color: black;
   font-weight: bold;
   margin-left: 10px;
 }
@@ -106,16 +109,46 @@
 }
 .headerMenuItem .headerMenuActiveLink {
   text-decoration: none;
-  color: #092f4a;
+  color: #4c8bca;
   padding: 5px 0px;
-  border-bottom: 2px solid #092f4a;
+  border-bottom: 2px solid #4c8bca;
 }
 .headerMenuMobile {
   display: none;
 }
+.headerWrapperMobile {
+  display: none;
+}
+
+.login {
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #4ca4e7;
+  text-decoration-line: none;
+  color: white;
+  text-decoration: none;
+  border-radius: 2px;
+  font-weight: 500;
+}
+.loginLink {
+  text-decoration-line: none;
+  text-decoration: none;
+}
 @media only screen and (max-width: 700px) {
-  .headerMenuLinkText {
+  .headerWrapper {
     display: none;
+  }
+
+  .headerWrapperMobile {
+    width: 100%;
+    height: 55px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .headerMenuLinkText {
+    font-size: 0.5rem;
   }
   .headerMenu {
     display: none;
@@ -143,5 +176,20 @@
   }
   .logo {
     font-size: 24px;
+    font-weight: bolder;
+  }
+
+  .loginLink {
+    text-decoration-line: none;
+    text-decoration: none;
+  }
+  .searchIconMobile {
+    margin-left: 20px;
+    font-size: 22px;
+    color: #00000099;
+  }
+  .headerProfileImage {
+    width: 24px;
+    margin-right: 20px;
   }
 }

@@ -52,6 +52,9 @@ function GetQuestionsUser(props) {
     } else if (props.authorUid) {
       query = firebase.firestore().collection("questions").where("status", "==", "public").where("authorUid", "==", props.authorUid).orderBy("time", "desc").limit(10)
       if (lastVisible != null) query = firebase.firestore().collection("questions").where("status", "==", "public").where("authorUid", "==", props.authorUid).orderBy("time", "desc").startAfter(lastVisible).limit(10)
+    } else if (props.myFeeds) {
+      query = firebase.firestore().collection("questions").where("status", "==", "public").where("topic", "in", props.myFeeds).orderBy("time", "desc").limit(10)
+      if (lastVisible != null) query = firebase.firestore().collection("questions").where("status", "==", "public").where("topic", "in", props.myFeeds).orderBy("time", "desc").startAfter(lastVisible).limit(10)
     } else {
       query = firebase.firestore().collection("questions").where("status", "==", "public").orderBy("time", "desc").limit(10)
       if (lastVisible != null) query = firebase.firestore().collection("questions").where("status", "==", "public").orderBy("time", "desc").startAfter(lastVisible).limit(10)
@@ -91,13 +94,13 @@ function GetQuestionsUser(props) {
           })}
 
           {state.loadmore && (
-            <div onClick={() => getData()} className="getQuestionsLoadmore">
+            <div onClick={() => getData()} className="getQuestionsLoadmoreUser">
               LOAD MORE
             </div>
           )}
         </>
       ) : (
-        <div className="getQuestionsLoadmore">No more qnots to show...</div>
+        <div className="getQuestionsLoadmoreUser">No more qnots to show...</div>
       )}
     </div>
   )

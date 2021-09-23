@@ -6,9 +6,11 @@ import { useImmerReducer } from "use-immer"
 import StateContext from "../../StateContext"
 import Loader from "../loader/Loader"
 import "./followingTopics.css"
+import DispatchContext from "../../DispatchContext"
 
 function FollowingTopics() {
   const appState = useContext(StateContext)
+  const appDispatch = useContext(DispatchContext)
 
   const initialState = {
     loading: true,
@@ -25,7 +27,7 @@ function FollowingTopics() {
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
 
   useEffect(() => {
-    getData()
+    //getData()
   }, [])
 
   const getData = async () => {
@@ -34,16 +36,22 @@ function FollowingTopics() {
 
   return (
     <div className="followingTopicsContainer">
-      {state.loading ? (
-        <Loader />
-      ) : (
-        <div className="followingTopicsWrapper">
-          <div>Topic1</div>
-          <div>Topic1</div>
-          <div>Topic1</div>
-          <div>Topic1</div>
-        </div>
-      )}
+      <div className="topicListByAlphabet">
+        {appState.followingTopics.length > 0 ? (
+          appState.followingTopics.map((item, index) => {
+            return (
+              <div key={index} className="topicListItem">
+                <span className="topicListItemText">{item}</span>
+                <span onClick={() => appDispatch({ type: "unFollowTopic", value: item })} className="topicListItemTextUnFollowBtn">
+                  Unfollow
+                </span>
+              </div>
+            )
+          })
+        ) : (
+          <div className="messageToUser">No topics to show.</div>
+        )}
+      </div>
     </div>
   )
 }

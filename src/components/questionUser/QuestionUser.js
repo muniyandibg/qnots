@@ -4,8 +4,8 @@ import { HiShare } from "react-icons/hi"
 import "./questionUser.css"
 import firebase from "../../firebaseConfig"
 import { Link, withRouter, history } from "react-router-dom"
-import { AiFillCheckCircle, AiFillCloseCircle, AiFillDelete } from "react-icons/ai"
-import { BiDownvote, BiUpvote, BiComment } from "react-icons/bi"
+import { AiFillCheckCircle, AiFillCloseCircle, AiFillDelete, AiFillLike } from "react-icons/ai"
+import { BsFillTriangleFill } from "react-icons/bs"
 import { TiArrowUpOutline, TiArrowUpThick } from "react-icons/ti"
 import { BsFillFlagFill } from "react-icons/bs"
 import { MdComment } from "react-icons/md"
@@ -19,14 +19,14 @@ import { FiMoreVertical } from "react-icons/fi"
 function QuestionUser(props) {
   const appState = useContext(StateContext)
   const initialState = {
-    selectedChoice: 0,
+    selectedChoice: null,
     loading: true,
     posts: [],
     lastVisible: null,
     loadmore: true,
     share: false,
     activityData: null,
-    upVote: false,
+    upVote: null,
     totalVoteCount: props.question.voteCount ? props.question.voteCount : 0,
     deleteQuestion: false,
     staus: null,
@@ -38,7 +38,7 @@ function QuestionUser(props) {
         draft.selectedChoice = action.value
         return
       case "share":
-        draft.share = action.value
+        draft.share = !draft.share
         return
       case "activity":
         draft.activityData = action.value
@@ -67,35 +67,51 @@ function QuestionUser(props) {
 
       firebase
         .firestore()
-        .collection("activity")
+        .collection("upvotes")
         .doc(activityId)
         .get()
         .then((doc) => {
-          if (doc.exists) dispatch({ type: "activity", value: { ...doc.data(), activityId } })
-          else dispatch({ type: "activity", value: { activityId } })
+          if (doc.exists) dispatch({ type: "upVote", value: true })
+          else dispatch({ type: "upVote", value: false })
+        })
+      firebase
+        .firestore()
+        .collection("answers")
+        .doc(activityId)
+        .get()
+        .then((doc) => {
+          if (doc.exists) dispatch({ type: "selectedChoice", value: doc.data().attempt })
+          else dispatch({ type: "selectedChoice", value: 0 })
         })
     }
   }, [])
 
   const response = (userChoice) => {
-    if (appState.user) dispatch({ type: "selectedChoice", value: userChoice })
-    else {
+    if (appState.user) {
+      let activityId = props.uid + "|" + props.question.id
+      dispatch({ type: "selectedChoice", value: userChoice })
+      firebase.firestore().collection("answers").doc(activityId).set({ uid: props.uid, qid: props.question.id, attempt: userChoice })
+      updateUserPerformance(userChoice)
+    } else {
       props.history.push("/profile")
       return
-    }
-    if (appState.user) {
-      if (!state.activityData.attempt && !state.activityData.upvote) firebase.firestore().collection("activity").doc(state.activityData.activityId).set({ attempt: userChoice })
-      else firebase.firestore().collection("activity").doc(state.activityData.activityId).update({ attempt: userChoice })
-
-      updateUserPerformance(userChoice)
     }
   }
   const upvote = (userVote) => {
     if (appState.user) {
-      dispatch({ type: "upVote", value: userVote })
-      updateQuestionVotes(userVote)
-      if (!state.activityData.attempt && !state.activityData.upVote) firebase.firestore().collection("activity").doc(state.activityData.activityId).set({ upVote: userVote })
-      else firebase.firestore().collection("activity").doc(state.activityData.activityId).update({ upVote: userVote })
+      let activityId = props.uid + "|" + props.question.id
+      if (state.upVote) {
+        dispatch({ type: "upVote", value: false })
+        updateVotes("downvote")
+        updateContributorVotes("downvote")
+        firebase.firestore().collection("upvotes").doc(activityId).delete()
+      } else {
+        dispatch({ type: "upVote", value: true })
+        let data = { uid: props.uid, qid: props.question.id, time: firebase.firestore.FieldValue.serverTimestamp() }
+        firebase.firestore().collection("upvotes").doc(activityId).set(data)
+        updateVotes("upvote")
+        updateContributorVotes("upvote")
+      }
     } else {
       props.history.push("/profile")
       return
@@ -145,7 +161,7 @@ function QuestionUser(props) {
       })
   }
 
-  const updateQuestionVotes = async (userVote) => {
+  const updateVotes = async (userVote) => {
     var sfDocRef = firebase.firestore().collection("questions").doc(props.question.id)
 
     return firebase
@@ -156,12 +172,39 @@ function QuestionUser(props) {
           } else {
             let voteCount = sfDoc.data().voteCount ? parseInt(sfDoc.data().voteCount) : 0
             console.log("error", voteCount)
-            if (userVote) {
+            if (userVote == "upvote") {
               voteCount++
             } else {
               voteCount--
             }
             dispatch({ type: "totalVoteCount", value: voteCount })
+            transaction.update(sfDocRef, { voteCount })
+          }
+        })
+      })
+      .then(() => {
+        console.log("Transaction successfully committed!")
+      })
+      .catch((error) => {
+        console.log("Transaction failed: ", error)
+      })
+  }
+  const updateContributorVotes = async (userVote) => {
+    var sfDocRef = firebase.firestore().collection("users").doc(props.uid)
+
+    return firebase
+      .firestore()
+      .runTransaction((transaction) => {
+        return transaction.get(sfDocRef).then((sfDoc) => {
+          if (!sfDoc.exists) {
+          } else {
+            let voteCount = sfDoc.data().voteCount ? parseInt(sfDoc.data().voteCount) : 0
+            console.log("error", voteCount)
+            if (userVote == "upvote") {
+              voteCount++
+            } else {
+              voteCount--
+            }
             transaction.update(sfDocRef, { voteCount })
           }
         })
@@ -207,10 +250,14 @@ function QuestionUser(props) {
               <div className="questionAuthorMore">{appState.user && props.question.author.uid == appState.user.uid ? <AiFillDelete onClick={() => dispatch({ type: "deleteQuestion", value: true })} className="moreIcon" /> : <BsFillFlagFill className="moreIcon" />}</div>
             </div>
             {state.deleteQuestion && (
-              <div className="questionHeaderUser">
+              <div className="questionDelete">
                 <span>Do you want to delete this question?</span>
-                <span onClick={() => deleteQuestion()}>YES</span>
-                <span onClick={() => dispatch({ type: "deleteQuestion", value: false })}>NO</span>
+                <span onClick={() => deleteQuestion()} className="questionDeleteChoice">
+                  Yes
+                </span>
+                <span onClick={() => dispatch({ type: "deleteQuestion", value: false })} className="questionDeleteChoice">
+                  No
+                </span>
               </div>
             )}
             {props.question.topic && (
@@ -223,44 +270,38 @@ function QuestionUser(props) {
             <div className="questionUser">{props.question.question}</div>
             <div onClick={() => response(1)} className={`questionChoiceUser ${state.selectedChoice > 0 ? (props.question.correctChoice == 1 ? "questionChoiceCorrectUser" : state.selectedChoice == 1 ? "questionChoiceWrongUser" : "disableChoiceUser") : ""}`}>
               <div className="questionChoiceRadioUser">A</div>
-              <div className="questionChoiceTextUser">
-                {props.question.choiceA}
-                <span className="questionResultIcon">{state.selectedChoice > 0 ? props.question.correctChoice == 1 ? <AiFillCheckCircle className="questionChoiceRadioIconUser" /> : state.selectedChoice == 1 ? <AiFillCloseCircle className="questionChoiceWrongRadioIconUser" /> : null : null}</span>
-              </div>
+              <div className="questionChoiceTextUser">{props.question.choiceA}</div>
+              {state.selectedChoice > 0 ? props.question.correctChoice == 1 ? <AiFillCheckCircle className="questionChoiceRadioIconUser" /> : state.selectedChoice == 1 ? <AiFillCloseCircle className="questionChoiceWrongRadioIconUser" /> : null : null}
             </div>
             <div onClick={() => response(2)} className={`questionChoiceUser ${state.selectedChoice > 0 ? (props.question.correctChoice == 2 ? "questionChoiceCorrectUser" : state.selectedChoice == 2 ? "questionChoiceWrongUser" : "disableChoiceUser") : ""}`}>
               <div className="questionChoiceRadioUser">B</div>
-              <div className="questionChoiceTextUser">
-                {props.question.choiceB}
-                <span className="questionResultIcon">{state.selectedChoice > 0 ? props.question.correctChoice == 2 ? <AiFillCheckCircle className="questionChoiceRadioIconUser" /> : state.selectedChoice == 2 ? <AiFillCloseCircle className="questionChoiceWrongRadioIconUser" /> : null : null}</span>
-              </div>
+              <div className="questionChoiceTextUser">{props.question.choiceB}</div>
+              {state.selectedChoice > 0 ? props.question.correctChoice == 2 ? <AiFillCheckCircle className="questionChoiceRadioIconUser" /> : state.selectedChoice == 2 ? <AiFillCloseCircle className="questionChoiceWrongRadioIconUser" /> : null : null}
             </div>
             <div onClick={() => response(3)} className={`questionChoiceUser ${state.selectedChoice > 0 ? (props.question.correctChoice == 3 ? "questionChoiceCorrectUser" : state.selectedChoice == 3 ? "questionChoiceWrongUser" : "disableChoiceUser") : ""}`}>
               <div className="questionChoiceRadioUser">C</div>
-              <div className="questionChoiceTextUser">
-                {props.question.choiceC}
-                <span className="questionResultIcon">{state.selectedChoice > 0 ? props.question.correctChoice == 3 ? <AiFillCheckCircle className="questionChoiceRadioIconUser" /> : state.selectedChoice == 3 ? <AiFillCloseCircle className="questionChoiceWrongRadioIconUser" /> : null : null}</span>
-              </div>
+              <div className="questionChoiceTextUser">{props.question.choiceC}</div>
+              {state.selectedChoice > 0 ? props.question.correctChoice == 3 ? <AiFillCheckCircle className="questionChoiceRadioIconUser" /> : state.selectedChoice == 3 ? <AiFillCloseCircle className="questionChoiceWrongRadioIconUser" /> : null : null}
             </div>
             <div onClick={() => response(4)} className={`questionChoiceUser ${state.selectedChoice > 0 ? (props.question.correctChoice == 4 ? "questionChoiceCorrectUser" : state.selectedChoice == 4 ? "questionChoiceWrongUser" : "disableChoiceUser") : ""}`}>
               <div className="questionChoiceRadioUser">D</div>
-              <div className="questionChoiceTextUser">
-                {props.question.choiceD}
-                <span className="questionResultIcon">{state.selectedChoice > 0 ? props.question.correctChoice == 4 ? <AiFillCheckCircle className="questionChoiceRadioIconUser" /> : state.selectedChoice == 4 ? <AiFillCloseCircle className="questionChoiceWrongRadioIconUser" /> : null : null}</span>
-              </div>
+              <div className="questionChoiceTextUser">{props.question.choiceD}</div>
+              {state.selectedChoice > 0 ? props.question.correctChoice == 4 ? <AiFillCheckCircle className="questionChoiceRadioIconUser" /> : state.selectedChoice == 4 ? <AiFillCloseCircle className="questionChoiceWrongRadioIconUser" /> : null : null}
             </div>
             <div className="questionFooterUser">
               <div onClick={() => upvote(state.upVote ? false : true)} className="questionFooterVoteSection">
-                {state.upVote ? <TiArrowUpThick className="voteButtonGreen" /> : <TiArrowUpOutline className="voteButton" />}
-                <span className="voteCount">{state.totalVoteCount}</span>
+                {state.upVote ? <BsFillTriangleFill className="voteButtonUpVoted" /> : <BsFillTriangleFill className="voteButton" />}
+                <span className={`voteCount ${state.upVote && "voteCountUpVoted"}`}>{state.totalVoteCount ? state.totalVoteCount + " votes" : "Upvote"}</span>
                 {/* <BiDownvote className="voteButton" /> */}
               </div>
-              <div onClick={() => props.history.push("question/" + props.question.id)} className="questionFooterCommentSection">
+              <div onClick={() => props.history.push("/question/" + props.question.id)} className="questionFooterCommentSection">
                 <MdComment className="commentIcon" />
+                <span className="voteCount">Comment</span>
                 {/* <span className="commentCount">10</span> */}
               </div>
-              <div className="questionFooterCommentSection" onClick={() => dispatch({ type: "share", value: true })}>
+              <div className="questionFooterCommentSection" onClick={() => dispatch({ type: "share" })}>
                 <HiShare className="shareIcon" />
+                <span className="voteCount">Share</span>
               </div>
             </div>
 

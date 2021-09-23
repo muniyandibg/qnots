@@ -1,6 +1,8 @@
 .questionContainerUser {
   width: 100%;
-  border-bottom: 1px solid lightgray;
+  border: 1px solid #e0dfdc;
+  box-sizing: border-box;
+  margin-top: 5px;
 }
 .questionWrapperUser {
   padding: 20px;
@@ -38,24 +40,30 @@
   width: 100%;
   display: flex;
   align-items: center;
-
+  background-color: #c3cfda0d;
   margin-bottom: 2px;
+  border-radius: 5px;
+  border: 1px solid #d2d5da;
+  color: #00000099;
 }
 .questionChoiceRadioUser {
   width: 20px;
   height: 20px;
-  padding: 5px;
-  border: 1px solid black;
-  border-radius: 20px;
+  padding: 5px 8px 5px 5px;
+
+  border-right: 2px solid #6b676714;
+
   font-size: medium;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 8px 8px 8px 0px;
+  margin: 8px 12px 8px 8px;
 }
 .questionChoiceTextUser {
   display: flex;
   flex: 1;
+
+  font-weight: 500;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
@@ -81,7 +89,7 @@
   color: green;
   width: 20px;
   height: 20px;
-  margin-left: 5px;
+  margin: 0px 8px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,7 +98,7 @@
   color: red;
   width: 20px;
   height: 20px;
-  margin-left: 5px;
+  margin: 0px 8px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -142,7 +150,7 @@
   font-weight: bold;
 }
 .questionAuthorNameTime {
-  color: grey;
+  color: 00000099;
   margin-top: 5px;
   font-size: 12px;
 }
@@ -154,14 +162,35 @@
 }
 .moreIcon {
   font-size: 24px;
+  color: #00000099;
+}
+.questionDelete {
+  display: flex;
+  background-color: red;
+  font-weight: bold;
+  color: white;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0px;
+}
+.questionDeleteChoice {
+  text-align: center;
+  width: 60px;
+  background-color: white;
+  border-radius: 5px;
+  margin-left: 5px;
+  padding: 5px;
   color: grey;
 }
 
 .questionFooterUser {
   display: flex;
-  margin-top: 30px;
+  padding-top: 10px;
   flex-direction: row;
   justify-content: space-between;
+
+  margin-top: 10px;
 }
 .questionFooterVoteSection {
   display: flex;
@@ -170,16 +199,20 @@
 }
 
 .voteButton {
-  font-size: 24px;
+  font-size: 20px;
+  color: #00000099;
 }
-.voteButtonGreen {
-  font-size: 24px;
-  color: green;
+.voteButtonUpVoted {
+  font-size: 20px;
+  color: #4c8bca;
 }
 .voteCount {
   margin: 0px 5px;
   font-weight: bold;
   color: grey;
+}
+.voteCountUpVoted {
+  color: #4c8bca;
 }
 .questionFooterCommentSection {
   display: flex;
@@ -191,8 +224,10 @@
 }
 .commentIcon {
   font-size: 24px;
+  color: #00000099;
 }
 .shareIcon {
   margin-right: 5px;
   font-size: 24px;
+  color: #00000099;
 }

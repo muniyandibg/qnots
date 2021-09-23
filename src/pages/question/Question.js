@@ -18,6 +18,7 @@ function Question() {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
 
+  const userId = appState.user ? appState.user.uid : null
   const initialState = {
     loading: true,
     question: null,
@@ -29,6 +30,7 @@ function Question() {
         draft.loading = action.value
         return
       case "question":
+        console.log(action.value)
         draft.question = action.value
         draft.loading = false
         return
@@ -51,7 +53,7 @@ function Question() {
       .then((doc) => {
         if (doc.exists) {
           console.log(doc.data())
-          dispatch({ type: "question", value: { ...doc.data(), id } })
+          dispatch({ type: "question", value: { ...doc.data(), id: id.id } })
         } else {
           // doc.data() will be undefined in this case
           console.log("No such document!")
@@ -66,7 +68,7 @@ function Question() {
     <div className="questionContainerSingle">
       <div className="questionWrapperSingle">
         {!appState.user && <Login />}
-        {!state.loading && <QuestionUser question={state.question} />}
+        {!state.loading && <QuestionUser uid={userId} key={id.id} question={state.question} />}
         {!state.loading && <div className="commentFeature">Comment Feature will be available soon...</div>}
       </div>
     </div>

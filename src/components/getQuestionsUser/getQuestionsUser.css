@@ -5,16 +5,16 @@
   justify-content: center;
   align-items: center;
 }
-.getQuestionsLoadmore {
-  width: 90%;
+.getQuestionsLoadmoreUser {
+  width: 100%;
   background-color: white;
   text-align: center;
-  padding: 10px;
+  padding: 10px 0px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 5px;
   margin-bottom: 50px;
   font-weight: 600;
-  color: #1b6c79;
+  color: #00000099;
 }

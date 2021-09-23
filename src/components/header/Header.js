@@ -69,15 +69,26 @@ function Header() {
           </li>
         </div>
 
-        <NavLink exact to="/profile" activeClassName="headerMenuActiveLink">
+        <NavLink exact to="/profile" className="loginLink">
           {appState.user ? (
             <div>
               <img src={appState.user.userProfilePhoto} alt="profile" className="headerProfileImage" />
             </div>
-          ) : pathname === "/profile" ? (
-            <FaUserCircle className="headerMenuIcon" />
           ) : (
-            <FaRegUserCircle className="headerMenuIcon" />
+            <div className="login">Login</div>
+          )}
+        </NavLink>
+      </div>
+      <div className="headerWrapperMobile">
+        <FaSearch className="searchIconMobile" />
+        <div className="logo">Qnots</div>
+        <NavLink exact to="/profile" className="loginLink">
+          {appState.user ? (
+            <div>
+              <img src={appState.user.userProfilePhoto} alt="profile" className="headerProfileImage" />
+            </div>
+          ) : (
+            <div className="login">Login</div>
           )}
         </NavLink>
       </div>
@@ -85,33 +96,39 @@ function Header() {
         <li className="headerMenuItem">
           <NavLink exact to="/" activeClassName="headerMenuActiveLink" className="headerMenuLink">
             {pathname === "/" ? <AiFillHome className="headerMenuIcon" /> : <AiFillHome className="headerMenuIcon" />}
+            <span className="headerMenuLinkText">Home</span>
           </NavLink>
         </li>
         <li className="headerMenuItem">
           <NavLink exact to="/feeds" activeClassName="headerMenuActiveLink" className="headerMenuLink">
             {pathname === "/feeds" ? <SiFeedly className="headerMenuIcon" /> : <SiFeedly className="headerMenuIcon" />}
+            <span className="headerMenuLinkText">My Feeds</span>
           </NavLink>
         </li>
 
         <li className="headerMenuItem">
           <NavLink exact to="/topiclist" activeClassName="headerMenuActiveLink" className="headerMenuLink">
             {pathname === "/topiclist" ? <RiFileListFill className="headerMenuIcon" /> : <RiFileListFill className="headerMenuIcon" />}
+            <span className="headerMenuLinkText">Topics</span>
           </NavLink>
         </li>
         <li className="headerMenuItem">
           <NavLink exact to="/contributors" activeClassName="headerMenuActiveLink" className="headerMenuLink">
             {pathname === "/contributors" ? <HiUserGroup className="headerMenuIcon" /> : <HiUserGroup className="headerMenuIcon" />}
+            <span className="headerMenuLinkText">Contributors</span>
           </NavLink>
         </li>
         <li className="headerMenuItem">
           <NavLink exact to="/performance" activeClassName="headerMenuActiveLink" className="headerMenuLink">
             {pathname === "/performance" ? <AiFillPieChart className="headerMenuIcon" /> : <AiFillPieChart className="headerMenuIcon" />}
+            <span className="headerMenuLinkText">Performance</span>
           </NavLink>
         </li>
 
         <li className="headerMenuItem">
           <NavLink exact to="/postquestion" activeClassName="headerMenuActiveLink" className="headerMenuLink">
             {pathname === "/postquestion" ? <IoIosAddCircle className="headerMenuIcon" /> : <IoIosAddCircle className="headerMenuIcon" />}
+            <span className="headerMenuLinkText">Create</span>
           </NavLink>
         </li>
       </div>

@@ -7,6 +7,7 @@ import StateContext from "./StateContext"
 import DispatchContext from "./DispatchContext"
 import Header from "./components/header/Header"
 import Home from "./pages/home/Home"
+import MyFeeds from "./pages/myfeeds/MyFeeds"
 import Performance from "./pages/performance/Permormance"
 import Question from "./pages/question/Question"
 import PostQuestion from "./pages/postQuestion/PostQuestion"
@@ -26,6 +27,8 @@ function App() {
     user: null,
     loginCount: 0,
     logoutCount: 0,
+    followingTopics: [],
+    updateFollowingTopics: 0,
   }
 
   function ourReducer(draft, action) {
@@ -48,6 +51,23 @@ function App() {
       case "changeLogoutCount":
         draft.logoutCount = draft.loginCount + 1
         return
+
+      case "setFollowingTopics":
+        draft.followingTopics = action.value
+        return
+
+      case "unFollowTopic":
+        let index = draft.followingTopics.indexOf(action.value)
+        draft.followingTopics.splice(index, 1)
+        draft.updateFollowingTopics++
+
+        return
+
+      case "followTopic":
+        draft.followingTopics.push(action.value)
+        draft.updateFollowingTopics++
+        return
+
       default:
         return
     }
@@ -56,9 +76,20 @@ function App() {
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(function (user) {
+    if (state.updateFollowingTopics > 0) updateFollowingTopics()
+  }, [state.followingTopics])
+
+  const updateFollowingTopics = () => {
+    if (state.user) firebase.firestore().collection("following").doc(state.user.uid).set({ topics: state.followingTopics })
+  }
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(async function (user) {
       if (user) {
-        let userData = { uid: user.uid, userDisplayName: user.displayName, userProfilePhoto: user.photoURL, userEmail: user.email }
+        let followingTopics = await firebase.firestore().collection("following").doc(user.uid).get()
+        console.log(followingTopics.data())
+        dispatch({ type: "setFollowingTopics", value: followingTopics.data().topics })
+        let userData = { uid: user.uid, userDisplayName: user.displayName, userProfilePhoto: user.photoURL, userEmail: user.email, voteCount: 0 }
         dispatch({ type: "setUserData", value: userData })
         if (user.metadata.creationTime === user.metadata.lastSignInTime) {
           console.log("new user")
@@ -132,6 +163,9 @@ function App() {
             <Switch>
               <Route path="/" exact>
                 <Home />
+              </Route>
+              <Route path="/feeds" exact>
+                <MyFeeds />
               </Route>
               <Route path="/topiclist" exact>
                 <TopicList />

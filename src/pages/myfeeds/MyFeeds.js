@@ -30,7 +30,7 @@ function MyFeeds() {
 
   return (
     <div className="homeContainer container">
-      <div className="homeWrapper">{appState.followingTopics.length > 0 ? <GetQuestionsUser myFeeds={appState.followingTopics} /> : <div className="messageToUser">Start following topics to build your feeds...</div>}</div>
+      <div className="homeWrapper">{!appState.user ? <div className="messageToUser">Login to view your personalised feeds!</div> : appState.followingTopics.length > 0 ? <GetQuestionsUser myFeeds={appState.followingTopics} /> : <div className="messageToUser">Start following topics to build your feeds...</div>}</div>
     </div>
   )
 }

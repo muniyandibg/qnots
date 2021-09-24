@@ -48,8 +48,10 @@ function FollowingTopics() {
               </div>
             )
           })
+        ) : appState.user ? (
+          <div className="messageToUser">Start following topics!</div>
         ) : (
-          <div className="messageToUser">No topics to show.</div>
+          <div className="messageToUser">Login to view your favorite topics!</div>
         )}
       </div>
     </div>

@@ -97,8 +97,7 @@ function App() {
     firebase.auth().onAuthStateChanged(async function (user) {
       if (user) {
         let followingTopics = await firebase.firestore().collection("following").doc(user.uid).get()
-        console.log(followingTopics.data())
-        dispatch({ type: "setFollowingTopics", value: followingTopics.data().topics })
+        if (followingTopics.data()) dispatch({ type: "setFollowingTopics", value: followingTopics.data().topics })
         let userData = { uid: user.uid, userDisplayName: user.displayName, userProfilePhoto: user.photoURL, userEmail: user.email, voteCount: 0 }
         dispatch({ type: "setUserData", value: userData })
         if (user.metadata.creationTime === user.metadata.lastSignInTime) {

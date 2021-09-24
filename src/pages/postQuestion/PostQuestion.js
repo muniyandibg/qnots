@@ -27,8 +27,14 @@ function PostQuestion() {
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
 
   return (
-    <div className="adminContainer container">
-      <div className="adminWrapper">{appState.user ? <AddQuestion /> : <div className="messageToUser">You are not logged in!</div>}</div>
+    <div className="adminContainer">
+      {appState.user ? (
+        <div className="adminWrapper">
+          <AddQuestion />{" "}
+        </div>
+      ) : (
+        <div className="messageToUser">Login to create a Qnot!</div>
+      )}
     </div>
   )
 }

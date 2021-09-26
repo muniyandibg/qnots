@@ -29,31 +29,20 @@ function Profile() {
   }, [])
 
   return (
-    <div className="profileContainer container">
+    <div className="profileContainer">
       <div className="profileWrapper">
-        {appState.user && <img src={appState.user.userProfilePhoto} alt="" className="profilePhoto" />}
-        {appState.user && <div className="userName">{appState.user.userDisplayName}</div>}
-        {appState.user ? (
-          <div onClick={() => appDispatch({ type: "changeLogoutCount" })} className="logoutButton">
-            Logout
-          </div>
-        ) : (
-          <div className="messageToUser">You are not logged in!</div>
-        )}
-        {appState.user && <div className="questionDivider">My Qnots</div>}
+        <div className="userDetails">
+          {appState.user && <img src={appState.user.userProfilePhoto} alt="" className="profilePhoto" />}
+          {appState.user && <div className="userName">{appState.user.userDisplayName}</div>}
+          {appState.user ? (
+            <div onClick={() => appDispatch({ type: "changeLogoutCount" })} className="logoutButtonUser">
+              Logout
+            </div>
+          ) : (
+            <div className="messageToUser">You are not logged in!</div>
+          )}
+        </div>
         {appState.user && <GetQuestionsUser authorUid={appState.user.uid} />}
-        {/* {appState.user && (
-          <div className="conditionsFooter">
-            By using our services you are agreeing to our{" "}
-            <span>
-              <a href="https://qnots.com/terms">Terms of use</a>
-            </span>
-            <span className="blankSpace">and</span>
-            <span>
-              <a href="https://qnots.com/privacy">Privacy policy</a>
-            </span>
-          </div>
-        )} */}
       </div>
     </div>
   )

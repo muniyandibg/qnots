@@ -191,9 +191,7 @@ function App() {
               <Route path="/profile" exact>
                 <Profile />
               </Route>
-              <Route path="/admin" exact>
-                <Admin />
-              </Route>
+
               <Route path="/postquestion" exact>
                 <PostQuestion />
               </Route>

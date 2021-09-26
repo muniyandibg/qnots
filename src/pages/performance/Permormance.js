@@ -71,9 +71,6 @@ function Performance() {
               </div>
             ) : (
               <div>
-                <div className="titleContainer">
-                  <div className="title">Your Performance</div>
-                </div>
                 <div className="performanceHeader">
                   <div className="performanceSubjectText">Topic</div>
                   <div className="performanceFields">Correct</div>

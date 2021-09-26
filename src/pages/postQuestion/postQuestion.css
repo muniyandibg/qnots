@@ -1,11 +1,12 @@
 .adminContainer {
   width: 100%;
-  min-height: 100%;
+  margin-top: 5px;
 }
 .adminWrapper {
   background-color: white;
   margin: auto;
-
+  border: 1px solid #e0dfdc;
+  box-sizing: border-box;
   max-width: 520px;
 }
 .adminMenu {

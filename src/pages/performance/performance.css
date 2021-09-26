@@ -1,7 +1,6 @@
 .performanceContainer {
   width: 100%;
-
-  min-height: 100%;
+  margin-top: 5px;
 }
 .performanceWrapper {
   margin: auto;
@@ -9,6 +8,8 @@
   max-width: 520px;
   display: flex;
   flex-direction: column;
+  border: 1px solid #e0dfdc;
+  box-sizing: border-box;
 }
 .subjectLink {
   background-color: white;
@@ -47,7 +48,7 @@
   align-items: center;
   padding: 15px;
   background-color: white;
-  font-size: 12px;
+  font-size: 0.8rem;
   font-weight: bold;
   border-bottom: 1px solid lightgray;
 }
@@ -57,7 +58,8 @@
   align-items: center;
   padding: 15px;
   background-color: white;
-  font-size: 12px;
+  font-size: 0.8rem;
+  border-bottom: 1px solid lightgrey;
 }
 
 .loadingContainer {
@@ -73,7 +75,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  width: 70px;
+  width: 60px;
 }
 
 .titleContainer {

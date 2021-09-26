@@ -245,12 +245,12 @@ function QuestionUser(props) {
         ) : (
           <>
             <div className="questionAuthor">
-              <div onClick={() => props.history.push("user/" + props.question.authorUid)}>
+              <div onClick={() => props.history.push("/user/" + props.question.authorUid)}>
                 <img src={props.question.author.userProfilePhoto} alt="" className="questionAuthorImage" />
               </div>
-              <div onClick={() => props.history.push("user/" + props.question.authorUid)} className="questionAuthorName">
+              <div onClick={() => props.history.push("/user/" + props.question.authorUid)} className="questionAuthorName">
                 <div>{props.question.author.userDisplayName}</div>
-                <div className="questionAuthorNameTime">{getDateTime(props.question.time)}</div>
+                <div className="questionAuthorNameTimeUser">{getDateTime(props.question.time)}</div>
               </div>
               <div className="questionAuthorMore">{appState.user && props.question.author.uid == appState.user.uid ? <AiFillDelete onClick={() => dispatch({ type: "deleteQuestion", value: true })} className="moreIcon" /> : <BsFillFlagFill className="moreIcon" />}</div>
             </div>

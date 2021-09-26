@@ -163,7 +163,7 @@ function AddQuestion(props) {
           </div>
           <div className="questionFooter">
             {!state.loading && (
-              <div onClick={() => dispatch({ type: "active", value: "question" })} className="previewButton">
+              <div onClick={() => dispatch({ type: "active", value: "question" })} className="backButton">
                 Back
               </div>
             )}

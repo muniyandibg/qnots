@@ -1,5 +1,6 @@
 .topicContainer {
   width: 100%;
+  margin-top: 5px;
 }
 .topicWrapper {
   margin: auto;
@@ -8,7 +9,8 @@
 }
 .topicTitleContainer {
   background-color: white;
-  border-bottom: 1px solid lightgrey;
+  border: 1px solid #e0dfdc;
+  box-sizing: border-box;
 }
 .topicTitle {
   padding: 20px;

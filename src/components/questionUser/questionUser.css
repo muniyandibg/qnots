@@ -17,10 +17,12 @@
 .questionHeaderLinkUser {
   text-decoration: none;
 
-  color: #4c8bca;
-  font-size: small;
+  color: white;
+
   font-weight: 500;
-  background-color: #d3d3d321;
+  background-color: #4c8bca;
+
+  border-radius: 5px;
   padding: 5px;
 }
 
@@ -32,8 +34,8 @@
   font-size: small;
 }
 .questionUser {
-  /* //color: #4271ca; */
-  font-weight: 400;
+  color: #00000099;
+  font-weight: 700;
   margin: 15px 0px 20px 0px;
 }
 .questionChoiceUser {
@@ -51,7 +53,7 @@
   height: 20px;
   padding: 5px 8px 5px 5px;
 
-  border-right: 2px solid #6b676714;
+  border-right: 2px solid #d2d5da;
 
   font-size: medium;
   display: flex;
@@ -149,8 +151,8 @@
   align-items: center;
   font-weight: bold;
 }
-.questionAuthorNameTime {
-  color: 00000099;
+.questionAuthorNameTimeUser {
+  color: #00000099;
   margin-top: 5px;
   font-size: 12px;
 }

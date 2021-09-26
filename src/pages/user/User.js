@@ -60,10 +60,11 @@ function User() {
   return (
     <div className="profileContainer container">
       <div className="profileWrapper">
-        {!state.loading && state.user && <img src={state.user.userProfilePhoto} alt="" className="profilePhoto" />}
-        {!state.loading && state.user && <div className="userName">{state.user.userDisplayName}</div>}
+        <div className="userDetails">
+          {!state.loading && state.user && <img src={state.user.userProfilePhoto} alt="" className="profilePhoto" />}
+          {!state.loading && state.user && <div className="userName">{state.user.userDisplayName}</div>}
+        </div>
 
-        {appState.user && <div className="questionDivider">Recent Qnots</div>}
         {appState.user && <GetQuestionsUser authorUid={id.id} />}
         {/* {appState.user && (
           <div className="conditionsFooter">

@@ -13,6 +13,9 @@
   width: 100%;
   display: flex;
   border-bottom: 1px solid lightgray;
+  background-color: white;
+  border: 1px solid #e0dfdc;
+  box-sizing: border-box;
 }
 .topicTypeItem {
   flex: 1;

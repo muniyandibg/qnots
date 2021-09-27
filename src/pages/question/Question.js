@@ -15,7 +15,7 @@ import Comments from "../../components/comments/Comments"
 
 function Question() {
   const id = useParams()
-
+  console.log(id.id)
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
 

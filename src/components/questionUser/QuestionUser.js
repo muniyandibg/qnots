@@ -253,7 +253,7 @@ function QuestionUser(props) {
                 <div>{props.question.author.userDisplayName}</div>
                 <div className="questionAuthorNameTimeUser">{getDateTime(props.question.time)}</div>
               </div>
-              <div className="questionAuthorMore">{appState.user && props.question.author.uid == appState.user.uid ? <AiFillDelete onClick={() => dispatch({ type: "deleteQuestion", value: true })} className="moreIcon" /> : <BsFillFlagFill className="moreIcon" />}</div>
+              <div className="questionAuthorMore">{appState.user && props.question.author.uid == appState.user.uid ? <AiFillDelete onClick={() => dispatch({ type: "deleteQuestion", value: true })} className="moreIcon" /> : <BsFillFlagFill onClick={() => props.history.push("/report/" + props.question.id)} className="moreIcon" />}</div>
             </div>
             {state.deleteQuestion && (
               <div className="questionDelete">

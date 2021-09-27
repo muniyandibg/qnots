@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react/cjs/react.development"
+import { useContext, useEffect } from "react"
 import { useImmerReducer } from "use-immer"
 import DispatchContext from "../../DispatchContext"
 import firebase from "../../firebaseConfig"
@@ -8,6 +8,7 @@ import "./comments.css"
 function Comments(props) {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
+
   const initalState = {
     loading: true,
     commentText: "",
@@ -36,9 +37,13 @@ function Comments(props) {
   }
   const [state, dispatch] = useImmerReducer(ourReducer, initalState)
   useEffect(() => {
-    firebase
+    getComments()
+  }, [])
+  const getComments = async () => {
+    await firebase
       .firestore()
       .collection("comments")
+      .where("qid", "==", props.qid)
       .orderBy("time", "desc")
       .get()
       .then((querySnapShots) => {
@@ -46,11 +51,12 @@ function Comments(props) {
         querySnapShots.forEach((doc) => {
           let commentData = doc.data()
           commentData.id = doc.id
+
           data.push(commentData)
         })
         dispatch({ type: "commentsData", value: data })
       })
-  }, [])
+  }
   const postComment = async () => {
     if (state.commentText == "") {
       alert("Please enter something")
@@ -60,7 +66,7 @@ function Comments(props) {
       commentText: state.commentText,
       uid: appState.user.uid,
       qid: props.qid,
-      userName: appState.user.userDisplayName,
+      userDisplayName: appState.user.userDisplayName,
       userProfilePhoto: appState.user.userProfilePhoto,
       time: firebase.firestore.FieldValue.serverTimestamp(),
     }
@@ -68,8 +74,10 @@ function Comments(props) {
     if (log.id) {
       updateCommentCount()
     }
-    let commentData = { ...comment, id: log.id }
-    dispatch({ type: "postComment", value: commentData })
+    if (log.id) {
+      comment.id = log.id
+      dispatch({ type: "postComment", value: comment })
+    }
   }
   const updateCommentCount = () => {
     var sfDocRef = firebase.firestore().collection("questions").doc(props.qid)
@@ -121,7 +129,7 @@ function Comments(props) {
           </div>
         ) : (
           <div onClick={() => appDispatch({ type: "showLoginScreen", value: true })} className="postCommentSection">
-            Login to post comment
+            <div className="messageToUser">Login to post comment</div>
           </div>
         )}
         {state.loading ? (
@@ -132,7 +140,7 @@ function Comments(props) {
           state.comments.map((comment, index) => {
             return (
               <div key={comment.id} className="userComment">
-                <span className="commentUserName">{comment.userName}</span>
+                <span className="commentUserName">{comment.userDisplayName}</span>
                 <span>{comment.commentText}</span>
                 {appState.user && appState.user.uid == comment.uid && (
                   <span onClick={() => deleteComment(comment.id, index)} className="commentDeleteButton">
@@ -143,7 +151,7 @@ function Comments(props) {
             )
           })
         ) : (
-          <div>Be the first to comment</div>
+          <div className="messageToUser">Be the first to comment</div>
         )}
       </div>
     </div>

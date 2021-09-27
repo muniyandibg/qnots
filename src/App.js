@@ -10,6 +10,7 @@ import Home from "./pages/home/Home"
 import MyFeeds from "./pages/myfeeds/MyFeeds"
 import Performance from "./pages/performance/Permormance"
 import Question from "./pages/question/Question"
+import Report from "./pages/report/Report"
 import PostQuestion from "./pages/postQuestion/PostQuestion"
 import Topic from "./pages/topic/Topic"
 import TopicList from "./pages/topiclist/TopicList"
@@ -197,6 +198,9 @@ function App() {
               </Route>
               <Route path="/question/:id" exact>
                 <Question />
+              </Route>
+              <Route path="/report/:id" exact>
+                <Report />
               </Route>
               <Route path="/topic/:topic" exact>
                 <Topic />

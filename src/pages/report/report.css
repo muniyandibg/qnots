@@ -1,0 +1,20 @@
+.questionContainerSingle {
+  width: 100%;
+}
+.questionWrapperSingle {
+  margin: auto;
+
+  max-width: 520px;
+}
+.loadingWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.commentFeature {
+  width: 90%;
+  margin-top: 10px;
+  margin: auto;
+  padding: 10px 0px;
+}

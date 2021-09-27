@@ -86,7 +86,9 @@ function GetQuestionsUser(props) {
   return (
     <div className="getQuestionsContainer">
       {state.loading ? (
-        <Loader />
+        <div className="loaderSection">
+          <Loader />
+        </div>
       ) : state.posts.length ? (
         <>
           {state.posts.map((post, index) => {

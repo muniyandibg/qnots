@@ -1,0 +1,64 @@
+.commensContainer {
+  width: 100%;
+  background-color: white;
+}
+.commentsWrapper {
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+
+  min-height: 300px;
+}
+.postCommentSection {
+  background-color: white;
+  padding: 10px 0px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+.profileImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0px 20px;
+}
+.commentInput {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #e0dfdc;
+}
+.commentInput:focus {
+  outline: none;
+}
+.postCommentButton {
+  margin: 0px 20px;
+  font-weight: bold;
+  color: #00000099;
+}
+.commentsLoader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.userComment {
+  width: 100%;
+
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 5px 0px;
+}
+.commentUserName {
+  font-weight: bold;
+  margin-right: 10px;
+}
+.commentDeleteButton {
+  color: red;
+  margin-left: 10px;
+  font-weight: bold;
+}

@@ -1,14 +1,13 @@
 .performanceContainer {
   width: 100%;
-  margin-top: 5px;
 }
 .performanceWrapper {
   margin: auto;
-  min-height: 100vh;
   max-width: 520px;
   display: flex;
   flex-direction: column;
   border: 1px solid #e0dfdc;
+  border-top: none;
   box-sizing: border-box;
 }
 .subjectLink {
@@ -47,10 +46,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  background-color: white;
+  background-color: #00000099;
+  color: white;
   font-size: 0.8rem;
   font-weight: bold;
-  border-bottom: 1px solid lightgray;
 }
 .performance {
   display: flex;

@@ -140,7 +140,9 @@ function AllTopics() {
       </ul>
       {state.loading ? (
         <div className="topicListByAlphabet">
-          <Loader />
+          <div className="loaderSection">
+            <Loader />
+          </div>
         </div>
       ) : (
         <div className="topicListByAlphabet">

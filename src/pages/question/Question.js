@@ -11,6 +11,7 @@ import GetQuestionsUser from "../../components/getQuestionsUser/GetQuestionsUser
 import Loader from "../../components/loader/Loader"
 import { useParams } from "react-router-dom"
 import QuestionUser from "../../components/questionUser/QuestionUser"
+import Comments from "../../components/comments/Comments"
 
 function Question() {
   const id = useParams()
@@ -67,9 +68,8 @@ function Question() {
   return (
     <div className="questionContainerSingle">
       <div className="questionWrapperSingle">
-        {!appState.user && <Login />}
         {!state.loading && <QuestionUser uid={userId} key={id.id} question={state.question} />}
-        {!state.loading && <div className="commentFeature">Comment Feature will be available soon...</div>}
+        {!state.loading && <Comments qid={id.id} />}
       </div>
     </div>
   )

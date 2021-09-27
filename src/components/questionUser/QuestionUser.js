@@ -30,6 +30,7 @@ function QuestionUser(props) {
     activityData: null,
     upVote: null,
     totalVoteCount: props.question.voteCount ? props.question.voteCount : 0,
+    totalCommentCount: props.question.commentCount ? props.question.commentCount : 0,
     deleteQuestion: false,
     staus: null,
   }
@@ -293,10 +294,15 @@ function QuestionUser(props) {
               <div className="questionChoiceTextUser">{props.question.choiceD}</div>
               {state.selectedChoice > 0 ? props.question.correctChoice == 4 ? <AiFillCheckCircle className="questionChoiceRadioIconUser" /> : state.selectedChoice == 4 ? <AiFillCloseCircle className="questionChoiceWrongRadioIconUser" /> : null : null}
             </div>
+            <div className="questionCounts">
+              <span>{state.totalVoteCount} Votes</span>
+              <span>{state.totalCommentCount} Comments</span>
+            </div>
             <div className="questionFooterUser">
               <div onClick={() => upvote(state.upVote ? false : true)} className="questionFooterVoteSection">
                 {state.upVote ? <BsFillTriangleFill className="voteButtonUpVoted" /> : <BsFillTriangleFill className="voteButton" />}
-                <span className={`voteCount ${state.upVote && "voteCountUpVoted"}`}>{state.totalVoteCount ? state.totalVoteCount + " votes" : "Upvote"}</span>
+                {state.upVote ? <span className="voteCountUpVoted">UnVote</span> : <span className="voteCount">Vote</span>}
+
                 {/* <BiDownvote className="voteButton" /> */}
               </div>
               <div onClick={() => props.history.push("/question/" + props.question.id)} className="questionFooterCommentSection">

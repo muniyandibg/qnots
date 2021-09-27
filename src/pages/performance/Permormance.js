@@ -59,39 +59,39 @@ function Performance() {
   }
 
   return (
-    <div className="performanceContainer container">
-      <div className="performanceWrapper">
-        {!appState.user ? (
-          <div className="messageToUser">Login to view your performance!</div>
-        ) : (
-          <div>
-            {state.loading ? (
-              <div className="loadingContainer">
+    <div className="performanceContainer">
+      {!appState.user ? (
+        <div className="messageToUser">Login to view your performance!</div>
+      ) : (
+        <div>
+          {state.loading ? (
+            <div className="loadingContainer">
+              <div className="loaderSection">
                 <Loader />
               </div>
-            ) : (
-              <div>
-                <div className="performanceHeader">
-                  <div className="performanceSubjectText">Topic</div>
-                  <div className="performanceFields">Correct</div>
-                  <div className="performanceFields">Incorrect</div>
-                  <div className="performanceFields">Percentage</div>
-                </div>
-                {state.performance.map((item, index) => {
-                  return (
-                    <div key={index} className="performance">
-                      <div className="performanceSubjectText">{item.subject}</div>
-                      <div className="performanceFields">{item.correct}</div>
-                      <div className="performanceFields">{item.wrong}</div>
-                      <div className="performanceFields">{item.percentage.toFixed(2)} %</div>
-                    </div>
-                  )
-                })}
+            </div>
+          ) : (
+            <div className="performanceWrapper">
+              <div className="performanceHeader">
+                <div className="performanceSubjectText">Topic</div>
+                <div className="performanceFields">Correct</div>
+                <div className="performanceFields">Incorrect</div>
+                <div className="performanceFields">Percentage</div>
               </div>
-            )}
-          </div>
-        )}
-      </div>
+              {state.performance.map((item, index) => {
+                return (
+                  <div key={index} className="performance">
+                    <div className="performanceSubjectText">{item.subject}</div>
+                    <div className="performanceFields">{item.correct}</div>
+                    <div className="performanceFields">{item.wrong}</div>
+                    <div className="performanceFields">{item.percentage.toFixed(2)} %</div>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }

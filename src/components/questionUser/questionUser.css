@@ -185,6 +185,13 @@
   padding: 5px;
   color: grey;
 }
+.questionCounts {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  color: grey;
+  font-size: 12px;
+}
 
 .questionFooterUser {
   display: flex;
@@ -214,6 +221,8 @@
   color: grey;
 }
 .voteCountUpVoted {
+  margin: 0px 5px;
+  font-weight: bold;
   color: #4c8bca;
 }
 .questionFooterCommentSection {

@@ -1,0 +1,55 @@
+.contributorCardContainer {
+  width: 100%;
+  background-color: white;
+}
+.contributorCardWrapper {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
+}
+.contributorProfilePhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.contributorDetails {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.contributorName {
+  font-weight: bold;
+}
+.contributorStats {
+  margin-top: 5px;
+  color: grey;
+  font-weight: bold;
+}
+.qnotsCount {
+  margin-right: 10px;
+}
+.followButton {
+  font-size: 10px;
+  padding: 5px;
+  color: #4c8bca;
+  border: 1px solid #4c8bca;
+  border-radius: 2px;
+}
+.unfollowButton {
+  font-size: 10px;
+  padding: 5px;
+  color: white;
+  background-color: #4c8bca;
+  border: 1px solid #4c8bca;
+  border-radius: 2px;
+}
+.loaderSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

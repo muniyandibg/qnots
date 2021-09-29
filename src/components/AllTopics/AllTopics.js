@@ -2,13 +2,14 @@
 
 import { useContext, useEffect } from "react"
 import { useImmerReducer } from "use-immer"
+import { Link, withRouter, history } from "react-router-dom"
 import DispatchContext from "../../DispatchContext"
 import firebase from "../../firebaseConfig"
 import StateContext from "../../StateContext"
 import Loader from "../loader/Loader"
 import "./allTopics.css"
 
-function AllTopics() {
+function AllTopics(props) {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
   const initialState = {
@@ -150,7 +151,9 @@ function AllTopics() {
             state.topics.map((item, index) => {
               return (
                 <div key={index} className="topicListItem">
-                  <span className="topicListItemText">{item}</span>
+                  <span onClick={() => props.history.push("/topic/" + item)} className="topicListItemText">
+                    {item}
+                  </span>
                   {appState.followingTopics.indexOf(item) > -1 ? (
                     <span onClick={() => appDispatch({ type: "unFollowTopic", value: item })} className="topicListItemTextUnFollowBtn">
                       Unfollow
@@ -172,4 +175,4 @@ function AllTopics() {
   )
 }
 
-export default AllTopics
+export default withRouter(AllTopics)

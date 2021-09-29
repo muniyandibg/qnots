@@ -34,7 +34,21 @@ function Home() {
     <div className="topicContainer container">
       <div className="topicWrapper">
         <div className="topicTitleContainer">
-          <div className="topicTitle">{topic.topic}</div>
+          <div className="topicTitle">
+            <span className="hash">#</span>
+            <span className="topicLinkText">{topic.topic}</span>
+          </div>
+          <div>
+            {appState.followingTopics.indexOf(topic.topic) > -1 ? (
+              <span onClick={() => appDispatch({ type: "unFollowTopic", value: topic.topic })} className="topicListItemTextUnFollowBtn">
+                Unfollow
+              </span>
+            ) : (
+              <span onClick={() => appDispatch({ type: "followTopic", value: topic.topic })} className="topicListItemTextFollowBtn">
+                Follow
+              </span>
+            )}
+          </div>
         </div>
         <GetQuestionsUser topic={topic.topic} />
       </div>

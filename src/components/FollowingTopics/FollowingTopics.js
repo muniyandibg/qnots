@@ -2,13 +2,14 @@
 
 import { useContext, useEffect } from "react"
 import firebase from "../../firebaseConfig"
+import { withRouter } from "react-router"
 import { useImmerReducer } from "use-immer"
 import StateContext from "../../StateContext"
 import Loader from "../loader/Loader"
 import "./followingTopics.css"
 import DispatchContext from "../../DispatchContext"
 
-function FollowingTopics() {
+function FollowingTopics(props) {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
 
@@ -41,7 +42,9 @@ function FollowingTopics() {
           appState.followingTopics.map((item, index) => {
             return (
               <div key={index} className="topicListItem">
-                <span className="topicListItemText">{item}</span>
+                <span onClick={() => props.history.push("/topic/" + item)} className="topicListItemText">
+                  {item}
+                </span>
                 <span onClick={() => appDispatch({ type: "unFollowTopic", value: item })} className="topicListItemTextUnFollowBtn">
                   Unfollow
                 </span>
@@ -57,4 +60,4 @@ function FollowingTopics() {
     </div>
   )
 }
-export default FollowingTopics
+export default withRouter(FollowingTopics)

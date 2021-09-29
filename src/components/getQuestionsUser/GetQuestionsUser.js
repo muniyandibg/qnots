@@ -52,9 +52,18 @@ function GetQuestionsUser(props) {
     } else if (props.authorUid) {
       query = firebase.firestore().collection("questions").where("status", "==", "public").where("authorUid", "==", props.authorUid).orderBy("time", "desc").limit(10)
       if (lastVisible != null) query = firebase.firestore().collection("questions").where("status", "==", "public").where("authorUid", "==", props.authorUid).orderBy("time", "desc").startAfter(lastVisible).limit(10)
-    } else if (props.myFeeds) {
-      query = firebase.firestore().collection("questions").where("status", "==", "public").where("topic", "in", props.myFeeds).orderBy("time", "desc").limit(10)
-      if (lastVisible != null) query = firebase.firestore().collection("questions").where("status", "==", "public").where("topic", "in", props.myFeeds).orderBy("time", "desc").startAfter(lastVisible).limit(10)
+    } else if (props.myFeedsTopics) {
+      let topics = appState.followingTopics
+      if (topics.length > 0) topics = topics.slice(0, 10)
+      console.log(topics)
+      query = firebase.firestore().collection("questions").where("status", "==", "public").where("topic", "in", topics).orderBy("time", "desc").limit(10)
+      if (lastVisible != null) query = firebase.firestore().collection("questions").where("status", "==", "public").where("topic", "in", topics).orderBy("time", "desc").startAfter(lastVisible).limit(10)
+    } else if (props.myFeedsContributors) {
+      let contributors = appState.followingUsers
+      if (contributors.length > 0) contributors = contributors.slice(0, 10)
+      console.log(contributors)
+      query = firebase.firestore().collection("questions").where("status", "==", "public").where("authorUid", "in", contributors).orderBy("time", "desc").limit(10)
+      if (lastVisible != null) query = firebase.firestore().collection("questions").where("status", "==", "public").where("authorUid", "in", contributors).orderBy("time", "desc").startAfter(lastVisible).limit(10)
     } else {
       query = firebase.firestore().collection("questions").where("status", "==", "public").orderBy("time", "desc").limit(10)
       if (lastVisible != null) query = firebase.firestore().collection("questions").where("status", "==", "public").orderBy("time", "desc").startAfter(lastVisible).limit(10)

@@ -14,12 +14,16 @@ function MyFeeds() {
 
   const initialState = {
     loading: true,
+    active: "topics",
   }
 
   function ourReducer(draft, action) {
     switch (action.type) {
       case "loading":
         draft.loading = action.value
+        return
+      case "active":
+        draft.active = action.value
         return
     }
   }
@@ -29,8 +33,24 @@ function MyFeeds() {
   }, [])
 
   return (
-    <div className="homeContainer container">
-      <div className="homeWrapper">{!appState.user ? <div className="messageToUser">Login to view your personalised feeds!</div> : appState.followingTopics.length > 0 ? <GetQuestionsUser myFeeds={appState.followingTopics} /> : <div className="messageToUser">Start following topics to build your feeds...</div>}</div>
+    <div className="topicContainer">
+      <div className="topicWrapper">
+        {!appState.user ? (
+          <div className="messageToUser">Login to view your personalised feeds from topics you follow!</div>
+        ) : (
+          <div className="topicType">
+            <div onClick={() => dispatch({ type: "active", value: "topics" })} className={state.active == "topics" ? "topicTypeItemActive" : "topicTypeItem"}>
+              From Topics
+            </div>
+            <div onClick={() => dispatch({ type: "active", value: "contributors" })} className={state.active == "contributors" ? "topicTypeItemActive" : "topicTypeItem"}>
+              By Contributors
+            </div>
+          </div>
+        )}
+        {appState.user && <div className="feedsRestrictionAlert">{state.active == "topics" ? "Qnots from 10 topics most recently followed by you!" : "Qnots from 10 contributors most recently followed by you!"}</div>}
+        {appState.user && state.active == "topics" && <GetQuestionsUser myFeedsTopics={appState.followingTopics} />}
+        {appState.user && state.active == "contributors" && <GetQuestionsUser myFeedsContributors={appState.followingUsers} />}
+      </div>
     </div>
   )
 }

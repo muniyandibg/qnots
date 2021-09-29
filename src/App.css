@@ -16,6 +16,19 @@ html {
   font-weight: bold;
   color: #00000099;
 }
-.loaderSection {
+.homeLoading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.loderSection {
   margin-top: 40px;
+}
+.hash {
+  color: #00000099;
+  font-weight: bold;
+}
+.topicLinkText {
+  color: #4c8bca;
 }

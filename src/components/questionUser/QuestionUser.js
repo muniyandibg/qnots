@@ -269,34 +269,37 @@ function QuestionUser(props) {
             {props.question.topic && (
               <div className="questionHeaderUser">
                 <Link className="questionHeaderLinkUser" to={"/topic/" + props.question.topic}>
+                  <span className="hash">#</span>
                   <span className="questionHeaderLinkTextUser">{props.question.topic}</span>
                 </Link>
               </div>
             )}
-            <div className="questionUser">{props.question.question}</div>
+            <div className="questionUser">
+              <span>{props.question.question}</span>
+            </div>
             <div onClick={() => response(1)} className={`questionChoiceUser ${state.selectedChoice > 0 ? (props.question.correctChoice == 1 ? "questionChoiceCorrectUser" : state.selectedChoice == 1 ? "questionChoiceWrongUser" : "disableChoiceUser") : ""}`}>
-              <div className="questionChoiceRadioUser">A</div>
+              <div className="questionChoiceRadioUser">A .</div>
               <div className="questionChoiceTextUser">{props.question.choiceA}</div>
               {state.selectedChoice > 0 ? props.question.correctChoice == 1 ? <AiFillCheckCircle className="questionChoiceRadioIconUser" /> : state.selectedChoice == 1 ? <AiFillCloseCircle className="questionChoiceWrongRadioIconUser" /> : null : null}
             </div>
             <div onClick={() => response(2)} className={`questionChoiceUser ${state.selectedChoice > 0 ? (props.question.correctChoice == 2 ? "questionChoiceCorrectUser" : state.selectedChoice == 2 ? "questionChoiceWrongUser" : "disableChoiceUser") : ""}`}>
-              <div className="questionChoiceRadioUser">B</div>
+              <div className="questionChoiceRadioUser">B .</div>
               <div className="questionChoiceTextUser">{props.question.choiceB}</div>
               {state.selectedChoice > 0 ? props.question.correctChoice == 2 ? <AiFillCheckCircle className="questionChoiceRadioIconUser" /> : state.selectedChoice == 2 ? <AiFillCloseCircle className="questionChoiceWrongRadioIconUser" /> : null : null}
             </div>
             <div onClick={() => response(3)} className={`questionChoiceUser ${state.selectedChoice > 0 ? (props.question.correctChoice == 3 ? "questionChoiceCorrectUser" : state.selectedChoice == 3 ? "questionChoiceWrongUser" : "disableChoiceUser") : ""}`}>
-              <div className="questionChoiceRadioUser">C</div>
+              <div className="questionChoiceRadioUser">C .</div>
               <div className="questionChoiceTextUser">{props.question.choiceC}</div>
               {state.selectedChoice > 0 ? props.question.correctChoice == 3 ? <AiFillCheckCircle className="questionChoiceRadioIconUser" /> : state.selectedChoice == 3 ? <AiFillCloseCircle className="questionChoiceWrongRadioIconUser" /> : null : null}
             </div>
             <div onClick={() => response(4)} className={`questionChoiceUser ${state.selectedChoice > 0 ? (props.question.correctChoice == 4 ? "questionChoiceCorrectUser" : state.selectedChoice == 4 ? "questionChoiceWrongUser" : "disableChoiceUser") : ""}`}>
-              <div className="questionChoiceRadioUser">D</div>
+              <div className="questionChoiceRadioUser">D .</div>
               <div className="questionChoiceTextUser">{props.question.choiceD}</div>
               {state.selectedChoice > 0 ? props.question.correctChoice == 4 ? <AiFillCheckCircle className="questionChoiceRadioIconUser" /> : state.selectedChoice == 4 ? <AiFillCloseCircle className="questionChoiceWrongRadioIconUser" /> : null : null}
             </div>
             <div className="questionCounts">
-              <span>{state.totalVoteCount} Votes</span>
-              <span>{state.totalCommentCount} Comments</span>
+              <span className="voteCount">{state.totalVoteCount} votes</span>
+              <span>{state.totalCommentCount} comments</span>
             </div>
             <div className="questionFooterUser">
               <div onClick={() => upvote(state.upVote ? false : true)} className="questionFooterVoteSection">

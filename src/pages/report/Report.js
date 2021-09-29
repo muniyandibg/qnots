@@ -108,21 +108,28 @@ function Report() {
     <div className="questionContainerSingle">
       <div className="questionWrapperSingle">
         {!state.loading && <QuestionUser uid={userId} key={id.id} question={state.question} />}
-        {appState.user && state.reportData && <div className="postCommentSection">Thanks for reporting!</div>}
+        {appState.user && state.reportData && (
+          <div className="reportWrapper">
+            <div className="alreadyReported">Thanks for reporting! We will let you know about our action on it!</div>
+          </div>
+        )}
         {appState.user && !state.reportData && (
-          <div className="postCommentSection">
-            <img className="profileImg" src={appState.user.userProfilePhoto} alt="img" />
-            <input
-              value={state.commentText}
-              onChange={(e) => {
-                dispatch({ type: "reportText", value: e.target.value })
-              }}
-              className="commentInput"
-              type="text"
-              placeholder="Enter your issue with this question!"
-            />
-            <div onClick={() => postReport()} className="postCommentButton">
-              POST
+          <div className="reportWrapper">
+            <div className="reportSection">
+              <div className="reportHeader">Please let us know the issue with this Qnot!</div>
+              <textarea
+                rows="5"
+                value={state.commentText}
+                onChange={(e) => {
+                  dispatch({ type: "reportText", value: e.target.value })
+                }}
+                className="reportInput"
+                type="text"
+                placeholder="Write your report here..."
+              />
+              <div onClick={() => postReport()} className="postReportButton">
+                Submit Report
+              </div>
             </div>
           </div>
         )}

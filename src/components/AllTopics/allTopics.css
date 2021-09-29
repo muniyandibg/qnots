@@ -50,6 +50,9 @@
 }
 .topicListItemText {
   margin-left: 20px;
+  color: #4c8bca;
+  font-weight: bold;
+  flex: 1;
 }
 .topicListItemTextFollowBtn {
   margin-right: 20px;

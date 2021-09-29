@@ -6,9 +6,6 @@
   max-width: 520px;
   display: flex;
   flex-direction: column;
-  border: 1px solid #e0dfdc;
-  border-top: none;
-  box-sizing: border-box;
 }
 .subjectLink {
   background-color: white;
@@ -40,6 +37,18 @@
 .subjectFolderIcon {
   font-size: 25px;
   margin-right: 5px;
+}
+.resetSection {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 5px 10px;
+}
+.resetButton {
+  color: #00000099;
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 2px;
 }
 .performanceHeader {
   display: flex;
@@ -57,6 +66,8 @@
   align-items: center;
   padding: 15px;
   background-color: white;
+  color: #00000099;
+  font-weight: bold;
   font-size: 0.8rem;
   border-bottom: 1px solid lightgrey;
 }

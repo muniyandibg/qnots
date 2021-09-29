@@ -8,10 +8,15 @@
   max-width: 520px;
 }
 .topicTitleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: white;
   border: 1px solid #e0dfdc;
   box-sizing: border-box;
 }
 .topicTitle {
   padding: 20px;
+
+  font-weight: bold;
 }

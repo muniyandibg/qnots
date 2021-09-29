@@ -1,16 +1,16 @@
 /* eslint-disable */
 
-import "./topiclist.css"
+import "./contributors.css"
 
 import { useContext, useEffect, useReducer } from "react"
-import FollowingTopics from "../../components/FollowingTopics/FollowingTopics"
-import AllTopics from "../../components/AllTopics/AllTopics"
+import FollowingContributors from "../../components/FollowingContributors/FollowingContributors"
+import TopContributors from "../../components/TopContributors/TopContributors"
 import { useImmerReducer } from "use-immer"
 import StateContext from "../../StateContext"
 
 function TopicList() {
   const initialState = {
-    active: "allTopics",
+    active: "topContributors",
   }
 
   function ourReducer(draft, action) {
@@ -29,14 +29,14 @@ function TopicList() {
     <div className="topicContainer">
       <div className="topicWrapper">
         <div className="topicType">
-          <div onClick={() => dispatch({ type: "active", value: "allTopics" })} className={state.active == "allTopics" ? "topicTypeItemActive" : "topicTypeItem"}>
-            All Topics
+          <div onClick={() => dispatch({ type: "active", value: "topContributors" })} className={state.active == "topContributors" ? "topicTypeItemActive" : "topicTypeItem"}>
+            Top Contributors
           </div>
           <div onClick={() => dispatch({ type: "active", value: "following" })} className={state.active == "following" ? "topicTypeItemActive" : "topicTypeItem"}>
             Following
           </div>
         </div>
-        {state.active == "following" ? <FollowingTopics /> : <AllTopics />}
+        {state.active == "following" ? <FollowingContributors /> : <TopContributors />}
       </div>
     </div>
   )

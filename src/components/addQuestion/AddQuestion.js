@@ -4,14 +4,14 @@ import { useImmerReducer } from "use-immer"
 import firebase from "../../firebaseConfig"
 import "./addQuestion.css"
 import { Link, withRouter, history } from "react-router-dom"
-import topics from "../../topics.json"
+
 import Loader from "../loader/Loader"
 import QuestionAdmin from "../questionAdmin/QuestionAdmin"
 import { useContext } from "react"
 import DispatchContext from "../../DispatchContext"
 import StateContext from "../../StateContext"
 import { produceWithPatches } from "immer"
-console.log(topics)
+
 function AddQuestion(props) {
   const appState = useContext(StateContext)
   const appDispatch = useContext(DispatchContext)
@@ -101,7 +101,9 @@ function AddQuestion(props) {
     let log = await firebase.firestore().collection("questions").add(question)
     if (log.id) {
       dispatch({ type: "success" })
+
       props.history.push("/question/" + log.id)
+      // updateUserQnots()
       addTopic(state.topic.trim())
     } else dispatch({ type: "message", value: "Error!!!" })
   }
@@ -212,7 +214,7 @@ function AddQuestion(props) {
             </select>
           </div> */}
           <div className="topic">
-            <input type="text" placeholder="Topic" pattern="[a-zA-Z0-9 ]+" className="topicText" value={state.topic} onChange={(e) => dispatch({ type: "topic", value: e.target.value.replace(/[^a-zA-Z0-9 ]/g, "") })} required />
+            <span className="hash">#</span> <input type="text" placeholder="Topic" pattern="[a-zA-Z0-9 ]+" className="topicText" value={state.topic} onChange={(e) => dispatch({ type: "topic", value: e.target.value.replace(/[^a-zA-Z0-9 ]/g, "") })} required />
           </div>
 
           {state.message && <div className="message">{state.message}</div>}

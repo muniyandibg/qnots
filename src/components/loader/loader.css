@@ -2,8 +2,9 @@
   border: 6px solid lightgrey;
   border-radius: 50%;
   border-top: 6px solid #00000099;
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
+  margin: 10px;
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
 }

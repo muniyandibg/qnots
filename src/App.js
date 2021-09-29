@@ -14,6 +14,7 @@ import Report from "./pages/report/Report"
 import PostQuestion from "./pages/postQuestion/PostQuestion"
 import Topic from "./pages/topic/Topic"
 import TopicList from "./pages/topiclist/TopicList"
+import Contributors from "./pages/contributors/Contributors"
 import firebase from "./firebaseConfig"
 import Loader from "./components/loader/Loader"
 import Profile from "./pages/profile/Profile"
@@ -31,7 +32,9 @@ function App() {
     loginCount: 0,
     logoutCount: 0,
     followingTopics: [],
+    followingUsers: [],
     updateFollowingTopics: 0,
+    updateFollowingUsers: 0,
   }
 
   function ourReducer(draft, action) {
@@ -74,8 +77,25 @@ function App() {
 
       case "followTopic":
         if (draft.user) {
-          draft.followingTopics.push(action.value)
+          draft.followingTopics.unshift(action.value)
           draft.updateFollowingTopics++
+        } else draft.showLoginScreen = true
+        return
+      case "setFollowingUsers":
+        draft.followingUsers = action.value
+        return
+
+      case "unFollowUser":
+        let userIndex = draft.followingUsers.indexOf(action.value)
+        draft.followingUsers.splice(userIndex, 1)
+        draft.updateFollowingUsers++
+
+        return
+
+      case "followUser":
+        if (draft.user) {
+          draft.followingUsers.unshift(action.value)
+          draft.updateFollowingUsers++
         } else draft.showLoginScreen = true
         return
 
@@ -90,16 +110,27 @@ function App() {
     if (state.updateFollowingTopics > 0) updateFollowingTopics()
   }, [state.followingTopics])
 
+  useEffect(() => {
+    if (state.updateFollowingUsers > 0) updateFollowingUsers()
+  }, [state.followingUsers])
+
   const updateFollowingTopics = () => {
-    if (state.user) firebase.firestore().collection("following").doc(state.user.uid).set({ topics: state.followingTopics })
+    if (state.user) firebase.firestore().collection("followingTopics").doc(state.user.uid).set({ topics: state.followingTopics })
+  }
+  const updateFollowingUsers = () => {
+    if (state.user) firebase.firestore().collection("followingUsers").doc(state.user.uid).set({ users: state.followingUsers })
   }
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(async function (user) {
       if (user) {
-        let followingTopics = await firebase.firestore().collection("following").doc(user.uid).get()
+        let followingTopics = await firebase.firestore().collection("followingTopics").doc(user.uid).get()
         if (followingTopics.data()) dispatch({ type: "setFollowingTopics", value: followingTopics.data().topics })
-        let userData = { uid: user.uid, userDisplayName: user.displayName, userProfilePhoto: user.photoURL, userEmail: user.email, voteCount: 0 }
+
+        let followingUsers = await firebase.firestore().collection("followingUsers").doc(user.uid).get()
+        if (followingUsers.data()) dispatch({ type: "setFollowingUsers", value: followingUsers.data().users })
+
+        let userData = { uid: user.uid, userDisplayName: user.displayName, userProfilePhoto: user.photoURL, userEmail: user.email, voteCount: 0, qnotsCount: 0, followersCount: 0, followingCount: 0 }
         dispatch({ type: "setUserData", value: userData })
         if (user.metadata.creationTime === user.metadata.lastSignInTime) {
           console.log("new user")
@@ -159,7 +190,7 @@ function App() {
 
   if (state.loading)
     return (
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+      <div className="homeLoading">
         <Loader />
       </div>
     )
@@ -185,6 +216,9 @@ function App() {
               </Route>
               <Route path="/topiclist" exact>
                 <TopicList />
+              </Route>
+              <Route path="/contributors" exact>
+                <Contributors />
               </Route>
               <Route path="/performance" exact>
                 <Performance />

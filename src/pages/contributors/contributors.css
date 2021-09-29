@@ -1,3 +1,14 @@
+.topicContainer {
+  width: 100%;
+}
+.topicWrapper {
+  margin: auto;
+
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+}
+
 .topicType {
   width: 100%;
   display: flex;
@@ -6,7 +17,6 @@
   border: 1px solid #e0dfdc;
   box-sizing: border-box;
 }
-
 .topicTypeItem {
   flex: 1;
   justify-content: center;
@@ -25,10 +35,4 @@
   padding: 15px;
   font-weight: 700;
   color: #4c8bca;
-}
-.feedsRestrictionAlert {
-  color: #00000099;
-  padding: 10px;
-  font-size: 0.8rem;
-  font-weight: bold;
 }

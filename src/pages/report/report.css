@@ -1,20 +1,40 @@
-.questionContainerSingle {
+.reportContainer {
   width: 100%;
 }
-.questionWrapperSingle {
-  margin: auto;
-
-  max-width: 520px;
+.reportWrapper {
+  background-color: white;
+  padding: 10px;
 }
-.loadingWrapper {
+.alreadyReported {
+  background-color: white;
   width: 100%;
+  text-align: center;
+  padding: 20px 0px;
+}
+.reportSection {
+  padding: 20px;
+  background-color: white;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
 }
-.commentFeature {
-  width: 90%;
-  margin-top: 10px;
-  margin: auto;
-  padding: 10px 0px;
+.reportHeader {
+  width: 100%;
+}
+.reportInput {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 15px 0px;
+  padding: 10px;
+  border: 1px solid lightgray;
+}
+.reportInput:focus {
+  outline: none;
+}
+.postReportButton {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 2px;
 }
